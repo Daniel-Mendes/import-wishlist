@@ -1,0 +1,209 @@
+html {
+    font-size: 12px;
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #121212;
+    
+}
+
+#container {
+    margin: 10px 20px;
+    width: 240px;
+}
+
+#heading {
+    font-size: 2rem;
+    color: rgba(255, 255, 255, 0.87);
+    margin: 20px auto;
+    text-align: center;
+}
+
+#alert {
+    display: none;
+
+    background-color: #67c1f5;
+    border-radius: 5px;
+
+    font-size: 1.2rem;
+    color: #fff;
+
+    padding: 10px;
+    margin-bottom: 20px;
+}
+
+#container-steam,
+#container-gog {
+    background-color: #171a21;
+    border-radius: 5px;
+    border: 1px solid #21242d;
+    color: #fff;
+    margin: 0;
+    padding: 15px;
+    max-width: 100%;
+    text-align: center;
+}
+
+#container-arrow {
+    margin: 20px auto;
+    text-align: center;
+}
+
+#container-arrow i {
+    filter: invert(100%) sepia(0%) saturate(7496%) hue-rotate(233deg) brightness(100%) contrast(101%) opacity(0.7);
+}
+
+.container-title {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 1.2rem;
+    margin: 0 0 20px 0;
+}
+
+.account-avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 20px;
+}
+
+.account-name {
+    display: inline-block;
+    font-size: 1.2rem;
+    color: rgba(255, 255, 255, 0.6);
+    vertical-align: bottom;
+    line-height: 50px;
+    text-decoration: none;
+
+    transition: all 0.3s ease-in-out;
+}
+
+.account-name:hover {
+    text-decoration: underline;
+}
+
+#btn-steam-login,
+#btn-gog-login {
+    background-color: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    padding: 10px;
+    width: 74px;
+    height: 74px;
+
+    transition: border-color 0.3s ease-in-out;
+}
+
+#btn-steam-login i,
+#btn-gog-login i {
+    transition: filter 0.3s ease-in-out;
+    filter: invert(100%) sepia(0%) saturate(7496%) hue-rotate(233deg) brightness(100%) contrast(101%) opacity(0.3);
+}
+
+#btn-steam-login:hover,
+#btn-gog-login:hover {
+    cursor: pointer;
+    border-color: rgba(255, 255, 255, 0.7);
+}
+
+#btn-steam-login:hover i,
+#btn-gog-login:hover i {
+    filter: invert(100%) sepia(0%) saturate(7496%) hue-rotate(233deg) brightness(100%) contrast(101%) opacity(0.7);
+}
+
+.container-details {
+    display: none;
+}
+
+#container-import-wishlist {
+    margin-top: 20px;
+}
+
+#delete-all-wishlist-label {
+    color:rgba(255, 255, 255, 0.7);
+    font-size: 1.2rem;
+}
+
+#delete-all-wishlist{
+    vertical-align: sub;
+}
+
+#btn-import-wishlist {
+    font-size: 1.6rem;
+    color: rgba(255, 255, 255, 1);
+
+    border: 0;
+    border-radius: 5px;
+    background-color: #6fa720;
+
+    margin-top: 5px;
+    padding: 10px;
+    width: 100%;
+
+    transition: background-color 0.3s ease-in-out;
+}
+
+#btn-import-wishlist:hover {
+    cursor: pointer;
+    background-color: #8ed629;
+}
+
+
+#btn-import-wishlist i {
+    margin-right: 10px;
+    filter: invert(100%) sepia(0%) saturate(7496%) hue-rotate(233deg) brightness(100%) contrast(101%) opacity(0.87);
+}
+
+#icon-steam-logo {
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    background: url(/assets/css/svg/steam-logo.svg) no-repeat;
+    background-size: 50px 50px;
+    vertical-align: middle;
+}
+
+#icon-gog-logo {
+    color: transparent;
+    display: inline-block;
+    width: 40px;
+    height: 35.5px;
+    background-image: url(/assets/css/svg/gog-logo.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 40px 35.5px;
+    vertical-align: middle;
+}
+
+#icon-rotate {
+    color: transparent;
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    background-image: url(/assets/css/svg/rotate.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 24px 24px;
+    vertical-align: middle;
+}
+
+#icon-arrow-down-long {
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    background: url(/assets/css/svg/arrow-down-long.svg) no-repeat;
+    background-size: 50px 50px;
+    vertical-align: middle;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% {  transform: rotate(359deg); }
+}
+
+.icon-spin {
+    animation: spin 2s linear infinite;
+}

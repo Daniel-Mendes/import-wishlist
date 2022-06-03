@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Import Wishlist</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+    <main id="container">
+        <h1 id="heading">Import Wishlist</h1>
+
+        <div id="alert"></div>
+        
+        <div id="container-steam">
+            <p class="container-title">Your Steam account</p>
+            <button id="btn-steam-login"><i id="icon-steam-logo"></i></button>
+            <div class="container-details" id="details-steam">
+                <img src="" alt="" class="account-avatar" id="steam-avatar">
+                <a href="" class="account-name" id="steam-name" target="_blank"></a>
+            </div>
+        </div>
+
+        <div id="container-arrow">
+            <i id="icon-arrow-down-long"></i>
+        </div>
+
+        <div id="container-gog">
+            <p class="container-title">Your GOG.com account</p>
+            <button id="btn-gog-login"><i id="icon-gog-logo"></i></button>
+            <div class="container-details" id="details-gog">
+                <img src="" alt="" class="account-avatar" id="gog-avatar">
+                <a href="" class="account-name" id="gog-name" target="_blank"></a>
+            </div>
+        </div>
+
+        <div id="container-import-wishlist">
+            <div>
+                <input type="checkbox" name="delete-all-wishlist" id="delete-all-wishlist">
+                <label for="delete-all-wishlist" id="delete-all-wishlist-label">Wipe GOG.com wishlist before</label>
+            </div>
+            <button id="btn-import-wishlist">
+                <i id="icon-rotate"></i>
+                Import wishlist
+            </button>
+        </div>
+      </main>
+    <script src="popup.js"></script>
+</body>
+</html>
