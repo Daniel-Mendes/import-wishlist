@@ -89,7 +89,7 @@ function removeAllFromWishlist() {
     });
 }
 
-async function addSteamWishlistToGog(steamWishlist, gogWishlistWiped) {
+async function addSteamWishlistToGog(steamWishlist, gogWishlist) {
     const results = {
         "added": 0,
         "notFound": 0,
@@ -104,7 +104,7 @@ async function addSteamWishlistToGog(steamWishlist, gogWishlistWiped) {
         if (search.products.length === 0) {
             return results.notFound++;
         } else if (search.products.length === 1) {
-            if (steamWishlist.includes(search.products[0].title) && !gogWishlistWiped) {
+            if (steamWishlist.includes(search.products[0].title) && !gogWishlist.includes(search.products[0].id)) {
                 return results.alreadyInWishlist++;
             } else {
                 fetch(`https://embed.gog.com/user/wishlist/add/${search.products[0].id}`);
@@ -114,7 +114,7 @@ async function addSteamWishlistToGog(steamWishlist, gogWishlistWiped) {
             search.products
                 .filter(product => product.title.toLowerCase() === steamWishlist[index].toLowerCase())
                 .map((product) => {
-                    if (steamWishlist.includes(product.title) && !gogWishlistWiped) {
+                    if (steamWishlist.includes(product.title) && !gogWishlist.includes(search.products[0].id)) {
                         return results.alreadyInWishlist++;
                     } else {
                         fetch(`https://embed.gog.com/user/wishlist/add/${product.id}`);
@@ -136,21 +136,27 @@ function importWhishlist() {
             .then(() => {
                 getSteamWishlist()
                     .then(steamWishlist => {
-                        addSteamWishlistToGog(steamWishlist, true)
-                            .then(results => {
-                                document.getElementById("delete-all-wishlist").checked = false;
-                                document.getElementById("icon-rotate").classList.remove("icon-spin");
-                                alert(`Games added : ${results.added}\n Games not found : ${results.notFound}\n Games already in wishlist : ${results.alreadyInWishlist}`, 10000);
+                        getGogWishlist()
+                            .then(gogWishlist => {
+                                addSteamWishlistToGog(steamWishlist, gogWishlist)
+                                    .then(results => {
+                                        document.getElementById("delete-all-wishlist").checked = false;
+                                        document.getElementById("icon-rotate").classList.remove("icon-spin");
+                                        alert(`Games added : ${results.added}\n Games not found : ${results.notFound}\n Games already in wishlist : ${results.alreadyInWishlist}`, 10000);
+                                    });
                             });
                     });
             });
     } else {
         getSteamWishlist()
             .then(steamWishlist => {
-                addSteamWishlistToGog(steamWishlist, false)
-                    .then(results => {
-                        document.getElementById("icon-rotate").classList.remove("icon-spin");
-                        alert(`Games added : ${results.added}\n Games not found : ${results.notFound}\n Games already in wishlist : ${results.alreadyInWishlist}`, 10000);
+                getGogWishlist()
+                    .then(gogWishlist => {
+                        addSteamWishlistToGog(steamWishlist, gogWishlist)
+                            .then(results => {
+                                document.getElementById("icon-rotate").classList.remove("icon-spin");
+                                alert(`Games added : ${results.added}\n Games not found : ${results.notFound}\n Games already in wishlist : ${results.alreadyInWishlist}`, 10000);
+                            });
                     });
             });
     }
