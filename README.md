@@ -1,5 +1,7 @@
 # Import Wishlist
 
+[![Chrome users](https://img.shields.io/chrome-web-store/users/jenjpehgcedkjfjmelkodhagcogpbmgl?label=Chrome%20users&logo=googlechrome)](https://chrome.google.com/webstore/detail/import-wishlist/jenjpehgcedkjfjmelkodhagcogpbmgl)
+
 This is a chrome extension that helps you to import your Steam wishlist to your GOG.com account.
 
 ![Image that shows what the extension does](/assets/images/extension.png)
