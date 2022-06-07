@@ -1,6 +1,6 @@
 
-chrome.runtime.onMessage.addListener((request, sender, response) => {
-    if (request.type === "gogToken") {
+chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+    if (message.type === "gogGetAccessToken") {
         const jsonParse = JSON.parse(document.getElementsByTagName("pre")[0].innerHTML);
         const accessToken = jsonParse.access_token;
         const refreshToken = jsonParse.refresh_token;
@@ -12,9 +12,7 @@ chrome.runtime.onMessage.addListener((request, sender, response) => {
             "gog_user_id": userId,
         }, () => {
             chrome.runtime.sendMessage({
-                "type": "gogTokenSuccess",
-                "gog_access_token": accessToken,
-                "gog_user_id": userId,
+                "type": "gogAccessTokenSuccess",
             });
         });
     }

@@ -8,7 +8,7 @@
    },
    "content_scripts": [ {
       "js": [ "content/content.js" ],
-      "matches": [ "https://auth.gog.com/token?*" ]
+      "matches": [ "https://auth.gog.com/token*" ]
    } ],
    "description": "Import your Steam's wishlist to GOG.com",
    "host_permissions": [ "https://store.steampowered.com/wishlist/profiles/", "https://steamcommunity.com/*", "https://*.gog.com/*" ],
@@ -20,6 +20,6 @@
    "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAsMRV1lF4uU9qRQVx+mnoh2/J64bWG1QdNGp5uXJOwT6qfRQQA1DT7oN0tlxuec7Pm2yyoMwhP4GWF6Nm6mvSTtaOzunbGkO/BpzgyCHpnmpVoV0yqbbYNnXkPNGQtvkeOjmaQZE3vzDGr+PGdINlmiNG9vR9P3rxQsCX1IUZe8a5k6vrj92XKMvJVnF3i1HkeKUShrxnyoA+P5/7gMg/lY/LgGEegXiYnWvAOd6Vi06jn2mqfXa6A/axx9JUCXULD/BtCCGcC1cOLDAH1G256pCzD7QK6cp5a/grCPOCMp10NdFNjqsTACC/4fvpxBiQHq7CkwPhOw0q9Z7XraxhAQIDAQAB",
    "manifest_version": 3,
    "name": "Import Wishlist",
-   "permissions": [ "tabs", "storage", "identity" ],
+   "permissions": [ "tabs", "storage", "identity", "webNavigation" ],
    "version": "0.0.1"
 }
