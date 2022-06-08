@@ -51,7 +51,7 @@ function getGogWishlist() {
                         const gogWishlistID = [];
                         Object.entries(data.wishlist).forEach(item => {
                             const [id] = item;
-                            gogWishlistID.push(id);
+                            gogWishlistID.push(parseInt(id));
                         });
                         resolve(gogWishlistID);
                     })
