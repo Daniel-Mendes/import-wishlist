@@ -1,3 +1,23 @@
+function setGogLoginSizes() {
+    const gogLoginWidth = 393;
+    const gogLoginHeight = 500;
+    const gogLoginleft = Math.floor((screen.width / 2) - (gogLoginWidth / 2));
+    const gogLoginTop = Math.floor((screen.height / 2) - (gogLoginHeight / 2));
+
+    const gogLoginSizes = {
+        "width": gogLoginWidth,
+        "height": gogLoginHeight,
+        "left": gogLoginleft,
+        "top": gogLoginTop
+    };
+    chrome.runtime.sendMessage({
+        "type": "setGogLoginSizes",
+        "gogLoginSizes": gogLoginSizes
+    });
+}
+
+setGogLoginSizes();
+
 function alert(message, timeout) {
     document.getElementById("alert").innerText = message;
     document.getElementById("alert").style.display = "block";
@@ -26,6 +46,13 @@ function setSteamDetails(steamUserId) {
                     document.getElementById("details-steam").style.display = "block";
                 });
         });
+
+    chrome.runtime.sendMessage({
+        "type": "getSteamWishlist",
+    }, (response) => {
+        document.getElementById("steam-wishlist-count").getElementsByTagName("span")[0].innerText = response.steamWishlistCount;
+        document.getElementsByClassName("container-wishlist")[0].style.display = "block";
+    });
 }
 
 function setGogDetails(gogAccessToken) {
@@ -44,7 +71,13 @@ function setGogDetails(gogAccessToken) {
             document.getElementById("gog-name").href = `https://www.gog.com/u/${data.username}/wishlist`;
             document.getElementById("details-gog").style.display = "block";
         });
-    
+
+    chrome.runtime.sendMessage({
+        "type": "getGogWishlist",
+    }, (response) => {
+        document.getElementById("gog-wishlist-count").getElementsByTagName("span")[0].innerText = response.gogWishlistCount;
+        document.getElementsByClassName("container-wishlist")[1].style.display = "block";
+    });
 }
 
 document.getElementById("btn-gog-login").addEventListener("click", () => {
@@ -74,7 +107,6 @@ document.getElementById("btn-import-wishlist").addEventListener("click", () => {
 
             chrome.runtime.sendMessage({
                 "type": "importWishlist",
-                "removeAll": document.getElementById("delete-all-wishlist").checked
             });
         }
     });
@@ -82,14 +114,18 @@ document.getElementById("btn-import-wishlist").addEventListener("click", () => {
 
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     switch (message.type) {
+        case "gogAccessTokenSuccess":
+            chrome.tabs.remove(sender.tab.id);
+            setGogDetails(message.gogAccessToken);
+            break;
         case "gogAccessTokenRefreshed":
+        case "gogLoggedIn":
             setGogDetails(message.gogAccessToken);
             break;
         case "steamLoggedIn":
             setSteamDetails(message.steam_user_id);
             break;
         case "wishlistImported":
-            document.getElementById("delete-all-wishlist").checked = false;
             document.getElementById("icon-rotate").classList.remove("icon-spin");
             alert(`Games added : ${message.results.added}\n Games not found : ${message.results.notFound}\n Games already in wishlist : ${message.results.alreadyInWishlist}`, 10000);
             break;

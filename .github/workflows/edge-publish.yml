@@ -1,0 +1,8 @@
+- name: Update Edge Add-on
+  uses: wdzeng/edge-addon@v1
+  with:
+    product-id: your-addon-product-id
+    zip-path: build/extension.zip
+    client-id: ${{ secrets.EDGE_CLIENT_ID }}
+    client-secret: ${{ secrets.EDGE_CLIENT_SECRET }}
+    refresh-token: ${{ secrets.EDGE_REFRESH_TOKEN_URL }}

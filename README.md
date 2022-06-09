@@ -1,13 +1,15 @@
 # Import Wishlist
 
 [![Chrome users](https://img.shields.io/chrome-web-store/users/jenjpehgcedkjfjmelkodhagcogpbmgl?label=Chrome%20users&logo=googlechrome)](https://chrome.google.com/webstore/detail/import-wishlist/jenjpehgcedkjfjmelkodhagcogpbmgl)
+[![Edge users](https://img.shields.io/badge/dynamic/json?label=Edge%20users&query=%24.activeInstallCount&url=https://microsoftedge.microsoft.com/addons/getproductdetailsbycrxid/dnpjkgmekpilchdgolfifobohlohlioc&logo=microsoftedge)](https://microsoftedge.microsoft.com/addons/detail/augmented-steam/dnpjkgmekpilchdgolfifobohlohlioc)
 
 This is a chrome extension that helps you to import your Steam wishlist to your GOG.com account.
 
-![Image that shows what the extension does](/assets/images/extension.png)
+![Image that shows what the extension does](.github/extension.png)
 
 ## Installation
 
-> Install the extension from the [Chrome Web Store](https://chrome.google.com/webstore/detail/import-wishlist/jenjpehgcedkjfjmelkodhagcogpbmgl/).
+> The extension is available on Chrome Web Store and Microsoft Edge Add-ons.
 
-[![Image link to install the extension from the Chrome Web Store](/assets/images/badge-chrome.png)](https://chrome.google.com/webstore/detail/import-wishlist/jenjpehgcedkjfjmelkodhagcogpbmgl/)
+[![Chrome download link](badges/chrome.png)](https://chrome.google.com/webstore/detail/import-wishlist/jenjpehgcedkjfjmelkodhagcogpbmgl/)
+[![Edge download link](badges/edge.png)](https://microsoftedge.microsoft.com/addons/detailimport-wishlist/jenjpehgcedkjfjmelkodhagcogpbmgl)

@@ -1,6 +1,10 @@
-function startGogLogin(gogLoginSizes) {
-    chrome.tabs.create({
+let gogLoginSizes;
+
+function startGogLogin() {
+    chrome.windows.create({
         "url": "https://login.gog.com/auth?client_id=46899977096215655&redirect_uri=https%3A%2F%2Fembed.gog.com%2Fon_login_success%3Forigin%3Dclient&response_type=code&layout=client2",
+        "type": "popup",
+        ...gogLoginSizes
     });
 }
 
@@ -104,18 +108,6 @@ function getSteamWishlist() {
     });
 }
 
-function removeAllFromWishlist() {
-    return new Promise((resolve, reject) => {
-        getGogWishlist()
-            .then(gogWishlist => {
-                for (let i = 0; i < gogWishlist.length; i++) {
-                    fetch(`https://embed.gog.com/user/wishlist/remove/${gogWishlist[i]}`);
-                }
-                resolve();
-            });
-    });
-}
-
 async function addSteamWishlistToGog(steamWishlist, gogWishlist) {
     const results = {
         "added": 0,
@@ -156,39 +148,20 @@ async function addSteamWishlistToGog(steamWishlist, gogWishlist) {
     return results;
 }
 
-function importWishlist(removeAll) {
-    if (removeAll) {
-        removeAllFromWishlist()
-            .then(() => {
-                getSteamWishlist()
-                    .then(steamWishlist => {
-                        getGogWishlist()
-                            .then(gogWishlist => {
-                                addSteamWishlistToGog(steamWishlist, gogWishlist)
-                                    .then(results => {
-                                        chrome.runtime.sendMessage({
-                                            "type": "wishlistImported",
-                                            "results": results,
-                                        });
-                                    });
+function importWishlist() {
+    getSteamWishlist()
+        .then(steamWishlist => {
+            getGogWishlist()
+                .then(gogWishlist => {
+                    addSteamWishlistToGog(steamWishlist, gogWishlist)
+                        .then(results => {
+                            chrome.runtime.sendMessage({
+                                "type": "wishlistImported",
+                                "results": results,
                             });
-                    });
-            });
-    } else {
-        getSteamWishlist()
-            .then(steamWishlist => {
-                getGogWishlist()
-                    .then(gogWishlist => {
-                        addSteamWishlistToGog(steamWishlist, gogWishlist)
-                            .then(results => {
-                                chrome.runtime.sendMessage({
-                                    "type": "wishlistImported",
-                                    "results": results,
-                                });
-                            });
-                    });
-            });
-    }
+                        });
+                });
+        });
 }
 
 function refreshGogAccessToken() {
@@ -229,7 +202,7 @@ chrome.webNavigation.onCompleted.addListener((data) => {
 
         chrome.tabs.remove(data.tabId);
 
-        chrome.tabs.create({
+        chrome.windows.create({
             "url": `https://auth.gog.com/token?${new URLSearchParams({
                 "client_id": "46899977096215655",
                 "client_secret": "9d85c43b1482497dbbce61f6e4aa173a433796eeae2ca8c5f6129f2dc4de46d9",
@@ -237,6 +210,11 @@ chrome.webNavigation.onCompleted.addListener((data) => {
                 "code": urlParameters.get("code"),
                 "redirect_uri": encodeURI("https://embed.gog.com/on_login_success?origin=client")
             })}`,
+            "type": "popup",
+            "width": 1,
+            "height": 1,
+            "top": 0,
+            "left": 0,
         });
     }
 
@@ -256,7 +234,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
             startGogLogin();
             break;
         case "importWishlist":
-            importWishlist(message.removeAll);
+            importWishlist();
             break;
         case "refreshGogAccessToken":
             refreshGogAccessToken()
@@ -274,8 +252,24 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
                     });
                 });
             break;
-        case "gogAccessTokenSuccess":
-            chrome.tabs.remove(sender.tab.id);
+        case "setGogLoginSizes":
+            gogLoginSizes = message.gogLoginSizes;
             break;
+        case "getGogWishlist":
+            getGogWishlist()
+                .then(gogWishlist => {
+                    sendResponse({
+                        "gogWishlistCount": gogWishlist.length,
+                    });
+                });
+            return true;
+        case "getSteamWishlist":
+            getSteamWishlist()
+                .then(steamWishlist => {
+                    sendResponse({
+                        "steamWishlistCount": steamWishlist.length,
+                    });
+                });
+            return true;
     }
 });

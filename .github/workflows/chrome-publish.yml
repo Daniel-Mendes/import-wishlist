@@ -1,0 +1,9 @@
+- name: Chrome Extension upload & publish
+  uses: Passiverecords/chrome-extension-upload-action@1.4.1
+  with:
+    client-id: ${{ secrets.CHROME_CLIENT_ID }}
+    client-secret: ${{ secrets.CHROME_CLIENT_SECRET }}
+    refresh-token: ${{ secrets.CHROME_REFRESH_TOKEN }}
+    app-id: 'jenjpehgcedkjfjmelkodhagcogpbmgl'
+    file-name: 'build/extension.zip'
+    publish: true

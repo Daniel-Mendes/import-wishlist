@@ -8,8 +8,6 @@
 </head>
 <body>
     <main id="container">
-        <h1 id="heading">Import Wishlist</h1>
-
         <div id="alert"></div>
         
         <div id="container-steam">
@@ -18,6 +16,9 @@
             <div class="container-details" id="details-steam">
                 <img src="" alt="" class="account-avatar" id="steam-avatar">
                 <a href="" class="account-name" id="steam-name" target="_blank"></a>
+            </div>
+            <div class="container-wishlist">
+                <p class="wishlist-count" id="steam-wishlist-count"><i class="icon-heart"></i><span></span> games</p>
             </div>
         </div>
 
@@ -32,13 +33,12 @@
                 <img src="" alt="" class="account-avatar" id="gog-avatar">
                 <a href="" class="account-name" id="gog-name" target="_blank"></a>
             </div>
+            <div  class="container-wishlist">
+                <p class="wishlist-count" id="gog-wishlist-count"><i class="icon-heart"></i><span></span> games</p>
+            </div>
         </div>
 
-        <div id="container-import-wishlist">
-            <div>
-                <input type="checkbox" name="delete-all-wishlist" id="delete-all-wishlist">
-                <label for="delete-all-wishlist" id="delete-all-wishlist-label">Wipe GOG.com wishlist before</label>
-            </div>
+        <div id="container-import-wishlist"> 
             <button id="btn-import-wishlist">
                 <i id="icon-rotate"></i>
                 Import wishlist

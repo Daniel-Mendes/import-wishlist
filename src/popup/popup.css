@@ -8,19 +8,11 @@ body {
     padding: 0;
     font-family: Arial, Helvetica, sans-serif;
     background-color: #121212;
-    
 }
 
 #container {
-    margin: 10px 20px;
+    margin: 20px;
     width: 240px;
-}
-
-#heading {
-    font-size: 2rem;
-    color: rgba(255, 255, 255, 0.87);
-    margin: 20px auto;
-    text-align: center;
 }
 
 #alert {
@@ -49,7 +41,7 @@ body {
 }
 
 #container-arrow {
-    margin: 20px auto;
+    margin: 10px auto;
     text-align: center;
 }
 
@@ -122,13 +114,43 @@ body {
     margin-top: 20px;
 }
 
+.container-wishlist {
+    display: none;
+
+    margin-top: 20px;
+    padding: 1px 0px;
+
+    background-color: rgba(255, 255, 255, 0.01);
+    border-radius: 5px;
+}
+
+.wishlist-count {
+    font-size: 1rem;
+    color:rgba(255, 255, 255, 0.3);
+}
+
+.wishlist-count i {
+    opacity: 0.5;
+    filter: invert(100%) sepia(0%) saturate(7496%) hue-rotate(233deg) brightness(100%) contrast(101%) opacity(0.7);
+}
+
+.wishlist-count span {
+    margin-left: 10px;
+}
+
+#delete-all-wishlist-label:hover,
+#delete-all-wishlist:hover {
+    cursor: pointer;
+}
+
 #delete-all-wishlist-label {
     color:rgba(255, 255, 255, 0.7);
     font-size: 1.2rem;
 }
 
-#delete-all-wishlist{
+#delete-all-wishlist {
     vertical-align: sub;
+    transform: scale(1.2);
 }
 
 #btn-import-wishlist {
@@ -161,7 +183,7 @@ body {
     display: inline-block;
     width: 50px;
     height: 50px;
-    background: url(/assets/svg/steam-logo.svg) no-repeat;
+    background: url(../assets/svg/steam-logo.svg) no-repeat;
     background-size: 50px 50px;
     vertical-align: middle;
 }
@@ -171,7 +193,7 @@ body {
     display: inline-block;
     width: 40px;
     height: 35.5px;
-    background-image: url(/assets/svg/gog-logo.svg);
+    background-image: url(../assets/svg/gog-logo.svg);
     background-repeat: no-repeat;
     background-position: center;
     background-size: 40px 35.5px;
@@ -183,19 +205,31 @@ body {
     display: inline-block;
     width: 24px;
     height: 24px;
-    background-image: url(/assets/svg/rotate.svg);
+    background-image: url(../assets/svg/rotate.svg);
     background-repeat: no-repeat;
     background-position: center;
     background-size: 24px 24px;
     vertical-align: middle;
 }
 
+.icon-heart {
+    color: transparent;
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background-image: url(../assets/svg/heart.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 20px 20px;
+    vertical-align: middle;
+}
+
 #icon-arrow-down-long {
     display: inline-block;
-    width: 50px;
-    height: 50px;
-    background: url(/assets/svg/arrow-down-long.svg) no-repeat;
-    background-size: 50px 50px;
+    width: 30px;
+    height: 30px;
+    background: url(../assets/svg/arrow-down-long.svg) no-repeat;
+    background-size: 30px 30px;
     vertical-align: middle;
 }
 

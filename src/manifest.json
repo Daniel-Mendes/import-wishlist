@@ -17,7 +17,6 @@
       "16": "assets/icons/icon-16.png",
       "48": "assets/icons/icon-48.png"
    },
-   "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAsMRV1lF4uU9qRQVx+mnoh2/J64bWG1QdNGp5uXJOwT6qfRQQA1DT7oN0tlxuec7Pm2yyoMwhP4GWF6Nm6mvSTtaOzunbGkO/BpzgyCHpnmpVoV0yqbbYNnXkPNGQtvkeOjmaQZE3vzDGr+PGdINlmiNG9vR9P3rxQsCX1IUZe8a5k6vrj92XKMvJVnF3i1HkeKUShrxnyoA+P5/7gMg/lY/LgGEegXiYnWvAOd6Vi06jn2mqfXa6A/axx9JUCXULD/BtCCGcC1cOLDAH1G256pCzD7QK6cp5a/grCPOCMp10NdFNjqsTACC/4fvpxBiQHq7CkwPhOw0q9Z7XraxhAQIDAQAB",
    "manifest_version": 3,
    "name": "Import Wishlist",
    "permissions": [ "tabs", "storage", "identity", "webNavigation" ],
