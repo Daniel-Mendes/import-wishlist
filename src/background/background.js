@@ -30,6 +30,13 @@ function startSteamLogin() {
         const steamUserID = claimedId.split("/")[claimedId.split("/").length - 1];
         chrome.storage.local.set({"steam_user_id": steamUserID}, () => {
             chrome.runtime.sendMessage({
+                "type": "alert",
+                "status": "success",
+                "message": "Steam account connected successfully.",
+                "timeout": 5000,
+            });
+            
+            chrome.runtime.sendMessage({
                 "type": "steamLoggedIn",
                 "steam_user_id": steamUserID,
             });
@@ -65,7 +72,8 @@ function getGogWishlist() {
             } else {
                 chrome.runtime.onMessage({
                     "type": "alert",
-                    "message": "Please connect to your GOG.com account",
+                    "status": "error",
+                    "message": "Please connect to your GOG.com account.",
                     "timeout": 5000,
                 });
             }
@@ -247,7 +255,8 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
                 .catch(error => {
                     chrome.runtime.onMessage({
                         "type": "alert",
-                        "message": "Please connect to your GOG.com account",
+                        "status": "error",
+                        "message": "Please connect to your GOG.com account.",
                         "timeout": 5000,
                     });
                 });

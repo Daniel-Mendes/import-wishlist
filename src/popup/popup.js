@@ -18,11 +18,21 @@ function setGogLoginSizes() {
 
 setGogLoginSizes();
 
-function alert(message, timeout) {
-    document.getElementById("alert").innerText = message;
-    document.getElementById("alert").style.display = "block";
-    setTimeout(() => {
-        document.getElementById("alert").style.display = "none";
+let alertTimeoutId;
+
+function alert(status, message, timeout) {
+    clearTimeout(alertTimeoutId);
+
+    const alert = document.getElementById("alert");
+    alert.classList.remove("success", "error");
+
+    alert.innerText = message;
+    alert.classList.add(status);
+    alert.style.display = "block";
+   
+    alertTimeoutId = setTimeout(() => {
+        alert.style.display = "none";
+        alert.classList.remove(status);
     }, timeout);
 }
 
@@ -37,12 +47,13 @@ function setSteamDetails(steamUserId) {
                 })
                 .then(xmlDoc => {
                     document.getElementById("btn-steam-login").style.display = "none";
+
                     document.getElementById("steam-avatar").src
-                        = xmlDoc.getElementsByTagName("avatarFull")[0].childNodes[0].nodeValue;
+                            = xmlDoc.getElementsByTagName("avatarFull")[0].childNodes[0].nodeValue;
                     document.getElementById("steam-name").href
-                        = `https://store.steampowered.com/wishlist/id/${xmlDoc.getElementsByTagName("customURL")[0].childNodes[0].nodeValue}`;
+                            = `https://store.steampowered.com/wishlist/id/${xmlDoc.getElementsByTagName("customURL")[0].childNodes[0].nodeValue}`;
                     document.getElementById("steam-name").innerText
-                        = xmlDoc.getElementsByTagName("steamID")[0].childNodes[0].nodeValue;
+                            = xmlDoc.getElementsByTagName("steamID")[0].childNodes[0].nodeValue;
                     document.getElementById("details-steam").style.display = "block";
                 });
         });
@@ -95,11 +106,11 @@ document.getElementById("btn-steam-login").addEventListener("click", () => {
 document.getElementById("btn-import-wishlist").addEventListener("click", () => {
     chrome.storage.local.get(["gog_access_token", "steam_user_id"], (result) => {
         if (!result.gog_access_token) {
-            alert("Please connect to your GOG.com account.", 5000);
+            alert("error", "Please connect to your GOG.com account.", 5000);
         }
         
         if (!result.steam_user_id) {
-            alert("Please connect to your Steam account.", 5000);
+            alert("error", "Please connect to your Steam account.", 5000);
         }
 
         if (result.gog_access_token && result.steam_user_id) {
@@ -115,11 +126,11 @@ document.getElementById("btn-import-wishlist").addEventListener("click", () => {
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     switch (message.type) {
         case "gogAccessTokenSuccess":
+            alert("success", "GOG.com account connected successfully.", 5000);
             chrome.tabs.remove(sender.tab.id);
             setGogDetails(message.gogAccessToken);
             break;
         case "gogAccessTokenRefreshed":
-        case "gogLoggedIn":
             setGogDetails(message.gogAccessToken);
             break;
         case "steamLoggedIn":
@@ -127,8 +138,10 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
             break;
         case "wishlistImported":
             document.getElementById("icon-rotate").classList.remove("icon-spin");
-            alert(`Games added : ${message.results.added}\n Games not found : ${message.results.notFound}\n Games already in wishlist : ${message.results.alreadyInWishlist}`, 10000);
+            alert("success", `Games added : ${message.results.added}\n Games not found : ${message.results.notFound}\n Games already in wishlist : ${message.results.alreadyInWishlist}`, 10000);
             break;
+        case "alert":
+            alert(message.status, message.message, message.timeout);
     }
 });
 
