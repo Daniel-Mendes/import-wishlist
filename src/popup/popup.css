@@ -1,3 +1,43 @@
+::-webkit-scrollbar {
+    height: 12px;
+    width: 14px;
+    background: transparent;
+    z-index: 12;
+    overflow: visible;
+}
+
+::-webkit-scrollbar-corner {
+    background: #202020;
+}
+
+::-webkit-scrollbar-thumb {
+    width: 10px;
+    background-color: #434953;
+    border-radius: 10px;
+    z-index: 12;
+    border: 4px solid rgba(0,0,0,0);
+    background-clip: padding-box;
+    transition: background-color .32s ease-in-out;
+    margin: 4px;
+    min-height: 32px;
+    min-width: 32px;
+}
+
+::selection {
+    background: #54a5d4;
+    text-shadow: 1px 1px 2px #000000aa;
+    color: #fff;
+}
+    
+@font-face {
+    font-family: "motiva-sans";
+    src: url("../assets/fonts/MotivaSans/MotivaSansRegular.woff.woff2") format("woff2");
+    font-display: auto;
+    font-style: normal;
+    font-weight: 400;
+    font-stretch: normal;
+}
+
 html {
     font-size: 12px;
 }
@@ -6,7 +46,11 @@ html,
 body {
     margin: 0;
     padding: 0;
-    font-family: Arial, Helvetica, sans-serif;
+
+    font-family: motiva-sans, Arial, Helvetica, sans-serif;
+    font-weight: 400;
+    font-style: normal;
+
     background-color: #121212;
 }
 
@@ -18,7 +62,6 @@ body {
 #alert {
     display: none;
 
-    background-color: #67c1f5;
     border-radius: 5px;
 
     font-size: 1.2rem;
@@ -26,6 +69,14 @@ body {
 
     padding: 10px;
     margin-bottom: 20px;
+}
+
+#alert.error {
+    background-color: #f56767;
+}
+
+#alert.success {
+    background-color: #67c1f5;
 }
 
 #container-steam,
@@ -120,7 +171,7 @@ body {
     margin-top: 20px;
     padding: 1px 0px;
 
-    background-color: rgba(255, 255, 255, 0.01);
+    background: rgba(103, 193, 245, 0.1);
     border-radius: 5px;
 }
 
@@ -154,29 +205,39 @@ body {
 }
 
 #btn-import-wishlist {
+    font-family: motiva-sans, Arial, Helvetica, sans-serif;
     font-size: 1.6rem;
-    color: rgba(255, 255, 255, 1);
+    color: #d2efa9;
+
+    cursor: pointer;
 
     border: 0;
     border-radius: 5px;
-    background-color: #6fa720;
+    background: #6fa720;
+    background: linear-gradient( to right, #75b022 5%, #588a1b 95%);
 
     margin-top: 5px;
     padding: 10px;
     width: 100%;
 
-    transition: background-color 0.3s ease-in-out;
+    transition: background 0.3s ease-in-out;
 }
 
 #btn-import-wishlist:hover {
-    cursor: pointer;
-    background-color: #8ed629;
-}
+    color: #ffffff;
 
+    background: #8ed629;
+    background: linear-gradient( to right, #8ed629 5%, #6aa621 95%);
+}
 
 #btn-import-wishlist i {
     margin-right: 10px;
-    filter: invert(100%) sepia(0%) saturate(7496%) hue-rotate(233deg) brightness(100%) contrast(101%) opacity(0.87);
+
+    filter: invert(88%) sepia(22%) saturate(466%) hue-rotate(37deg) brightness(101%) contrast(94%);
+}
+
+#btn-import-wishlist:hover i {
+    filter: invert(100%) sepia(6%) saturate(0%) hue-rotate(103deg) brightness(103%) contrast(101%);
 }
 
 #icon-steam-logo {
