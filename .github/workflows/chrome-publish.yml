@@ -1,9 +1,15 @@
-- name: Chrome Extension upload & publish
-  uses: Passiverecords/chrome-extension-upload-action@1.4.1
-  with:
-    client-id: ${{ secrets.CHROME_CLIENT_ID }}
-    client-secret: ${{ secrets.CHROME_CLIENT_SECRET }}
-    refresh-token: ${{ secrets.CHROME_REFRESH_TOKEN }}
-    app-id: 'jenjpehgcedkjfjmelkodhagcogpbmgl'
-    file-name: 'build/extension.zip'
-    publish: true
+name: Upload Chrome extension
+on: [workflow_dispatch]
+jobs:
+  upload:
+    name: Upload
+    runs-on: ubuntu-latest
+    steps:
+      - uses: wdzeng/chrome-extension@v1
+        with:
+          extension-id: your-extension-id
+          zip-path: build/extension.zip
+          tester-only: false
+          client-id: ${{ secrets.CHROME_CLIENT_ID }}
+          client-secret: ${{ secrets.CHROME_CLIENT_SECRET }}
+          refresh-token: ${{ secrets.CHROME_REFRESH_TOKEN }}
