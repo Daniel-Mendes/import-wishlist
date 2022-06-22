@@ -1,12 +1,6 @@
 name: Publish
 
-on:
-  push:
-    branches:
-      - main
-    paths:
-      - src/**
-  workflow_dispatch: ~
+on: workflow_dispatch
 
 env:
   PATH_CHROME_ZIP: import-wishlist_chrome.zip
