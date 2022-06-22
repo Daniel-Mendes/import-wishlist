@@ -1,5 +1,7 @@
 name: Upload Firefox Add-on
+
 on: [workflow_dispatch]
+
 jobs:
   upload:
     name: Upload
