@@ -1,0 +1,107 @@
+name: Publish
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - src/**
+  workflow_dispatch: ~
+
+env:
+  PATH_CHROME_ZIP: import-wishlist_chrome.zip
+  PATH_FIREFOX_XPI: import-wishlist_firefox.zip
+
+jobs:
+  build-chrome:
+    name: Build project for Google Chrome and Microsoft Edge
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v3
+      - name: Build project
+        run: make build-chrome
+      - name: Save extension zip
+        uses: actions/upload-artifact@v3
+        with:
+          path: ${{ env.PATH_CHROME_ZIP }}
+          name: ${{ env.PATH_CHROME_ZIP }}
+
+  build-firefox:
+    name: Build project for Mozilla Firefox
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v3
+      - name: Build project
+        run: make build-firefox
+      - name: Save add-on xpi
+        uses: actions/upload-artifact@v3
+        with:
+          path: ${{ env.PATH_FIREFOX_XPI  }}
+          name: ${{ env.PATH_FIREFOX_XPI  }}
+
+  publish-chrome:
+    name: Publish extension to Chrome Web Store
+    runs-on: ubuntu-latest
+    needs:
+      - build-chrome
+    env:
+      EXTENSION_ID: jenjpehgcedkjfjmelkodhagcogpbmgl
+    steps:
+      - name: Download extension zip
+        uses: actions/download-artifact@v3
+        with:
+          name: ${{ env.PATH_CHROME_ZIP }}
+          path: .
+      - name: Publish to Chrome Web Store
+        uses: wdzeng/chrome-extension@v1
+        with:
+          extension-id: ${{ env.EXTENSION_ID }}
+          zip-path: ${{ env.PATH_CHROME_ZIP }}
+          client-id: ${{ secrets.CHROME_CLIENT_ID }}
+          client-secret: ${{ secrets.CHROME_CLIENT_SECRET }}
+          refresh-token: ${{ secrets.CHROME_REFRESH_TOKEN }}
+
+  publish-edge:
+    name: Publish extension to Edge Add-ons
+    runs-on: ubuntu-latest
+    needs:
+      - build-chrome
+    env:
+      EXTENSION_ID: fpjkbmpnfckpnaiijocjdfcjddnkjhnb
+    steps:
+      - name: Download add-on zip
+        uses: actions/download-artifact@v3
+        with:
+          name: ${{ env.PATH_CHROME_ZIP }}
+          path: .
+      - name: Publish to Edge Add-ons
+        uses: wdzeng/edge-addon@v1
+        with:
+          product-id: ${{ env.EXTENSION_ID }}
+          zip-path: ${{ env.PATH_CHROME_ZIP }}
+          client-id: ${{ secrets.EDGE_CLIENT_ID }}
+          client-secret: ${{ secrets.EDGE_CLIENT_SECRET }}
+          access-token-url: ${{ secrets.EDGE_ACCESS_TOKEN_URL }}
+
+  publish-firefox:
+    name: Publish extension to Firefox Add-ons
+    runs-on: ubuntu-latest
+    needs:
+      - build-firefox
+    env:
+      EXTENSION_ID: fpjkbmpnfckpnaiijocjdfcjddnkjhnb
+    steps:
+      - name: Download addon xpi
+        uses: actions/download-artifact@v3
+        with:
+          name: ${{ env.PATH_FIREFOX_XPI }}
+          path: .
+      - name: Publish to Firefox Add-ons
+        uses: wdzeng/firefox-addon@v1
+        with:
+          xpi-path: ${{ env.PATH_FIREFOX_XPI }}
+          addon-guid: ${{ env.EXTENSION_ID }}
+          jwt-issuer: ${{ secrets.FIREFOX_JWT_ISSUER }}
+          jwt-secret: ${{ secrets.FIREFOX_JWT_SECRET }}

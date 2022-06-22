@@ -13,9 +13,9 @@
    "description": "Import your Steam's wishlist to GOG.com",
    "host_permissions": [ "https://store.steampowered.com/wishlist/profiles/", "https://steamcommunity.com/*", "https://*.gog.com/*" ],
    "icons": {
-      "128": "assets/icons/icon-128.png",
       "16": "assets/icons/icon-16.png",
-      "48": "assets/icons/icon-48.png"
+      "48": "assets/icons/icon-48.png",
+      "128": "assets/icons/icon-128.png"
    },
    "manifest_version": 3,
    "name": "Import Wishlist",
