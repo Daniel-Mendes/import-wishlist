@@ -1,5 +1,7 @@
 name: Upload Chrome extension
+
 on: [workflow_dispatch]
+
 jobs:
   upload:
     name: Upload
@@ -7,7 +9,7 @@ jobs:
     steps:
       - uses: wdzeng/chrome-extension@v1
         with:
-          extension-id: your-extension-id
+          extension-id: jenjpehgcedkjfjmelkodhagcogpbmgl
           zip-path: build/extension.zip
           tester-only: false
           client-id: ${{ secrets.CHROME_CLIENT_ID }}
