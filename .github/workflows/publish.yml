@@ -3,8 +3,8 @@ name: Publish
 on: workflow_dispatch
 
 env:
-  PATH_CHROME_ZIP: import-wishlist_chrome.zip
-  PATH_FIREFOX_XPI: import-wishlist_firefox.zip
+  CHROME_PATH_ZIP: import-wishlist_chrome.zip
+  FIREFOX_PATH_XPI: import-wishlist_firefox.zip
 
 jobs:
   build-chrome:
@@ -41,18 +41,18 @@ jobs:
     needs:
       - build-chrome
     env:
-      EXTENSION_ID: jenjpehgcedkjfjmelkodhagcogpbmgl
+      CHROME_EXTENSION_ID: jenjpehgcedkjfjmelkodhagcogpbmgl
     steps:
       - name: Download extension zip
         uses: actions/download-artifact@v3
         with:
-          name: ${{ env.PATH_CHROME_ZIP }}
+          name: ${{ env.CHROME_PATH_ZIP }}
           path: .
       - name: Publish to Chrome Web Store
         uses: wdzeng/chrome-extension@v1
         with:
-          extension-id: ${{ env.EXTENSION_ID }}
-          zip-path: ${{ env.PATH_CHROME_ZIP }}
+          extension-id: ${{ env.CHROME_EXTENSION_ID }}
+          zip-path: ${{ env.CHROME_PATH_ZIP }}
           client-id: ${{ secrets.CHROME_CLIENT_ID }}
           client-secret: ${{ secrets.CHROME_CLIENT_SECRET }}
           refresh-token: ${{ secrets.CHROME_REFRESH_TOKEN }}
@@ -63,18 +63,18 @@ jobs:
     needs:
       - build-chrome
     env:
-      EXTENSION_ID: fpjkbmpnfckpnaiijocjdfcjddnkjhnb
+      EDGE_PRODUCT_ID: fpjkbmpnfckpnaiijocjdfcjddnkjhnb
     steps:
       - name: Download add-on zip
         uses: actions/download-artifact@v3
         with:
-          name: ${{ env.PATH_CHROME_ZIP }}
+          name: ${{ env.CHROME_PATH_ZIP }}
           path: .
       - name: Publish to Edge Add-ons
         uses: wdzeng/edge-addon@v1
         with:
-          product-id: ${{ env.EXTENSION_ID }}
-          zip-path: ${{ env.PATH_CHROME_ZIP }}
+          product-id: ${{ env.EDGE_PRODUCT_ID }}
+          zip-path: ${{ env.CHROME_PATH_ZIP }}
           client-id: ${{ secrets.EDGE_CLIENT_ID }}
           client-secret: ${{ secrets.EDGE_CLIENT_SECRET }}
           access-token-url: ${{ secrets.EDGE_ACCESS_TOKEN_URL }}
@@ -85,17 +85,17 @@ jobs:
     needs:
       - build-firefox
     env:
-      EXTENSION_ID: fpjkbmpnfckpnaiijocjdfcjddnkjhnb
+      FIREFOX_ADDON_GUID: '{720b5715-5fbe-442b-bf44-be3bb4bb774a}'
     steps:
       - name: Download addon xpi
         uses: actions/download-artifact@v3
         with:
-          name: ${{ env.PATH_FIREFOX_XPI }}
+          name: ${{ env.FIREFOX_PATH_XPI }}
           path: .
       - name: Publish to Firefox Add-ons
         uses: wdzeng/firefox-addon@v1
         with:
-          xpi-path: ${{ env.PATH_FIREFOX_XPI }}
-          addon-guid: ${{ env.EXTENSION_ID }}
+          xpi-path: ${{ env.FIREFOX_PATH_XPI }}
+          addon-guid: ${{ env.FIREFOX_ADDON_GUID }}
           jwt-issuer: ${{ secrets.FIREFOX_JWT_ISSUER }}
           jwt-secret: ${{ secrets.FIREFOX_JWT_SECRET }}

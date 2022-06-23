@@ -7,6 +7,12 @@ help: ## Display list of commands
 clean: ## Clean dist/ folder and .zip files
 	rm -rf dist import-wishlist_*.zip
 
+clean-chrome: ## Clean dist/ folder and  import-wishlist_chrome.zip files
+	rm -rf dist import-wishlist_chrome.zip
+
+clean-firefox: ## Clean dist/ folder and   import-wishlist_firefox.zip files
+	rm -rf dist import-wishlist_firefox.zip
+
 copy: ## Copy src/ folder to dist/ folder
 	mkdir -p ./dist
 	cp -r ./src/assets ./src/background ./src/content ./src/popup dist/
@@ -17,9 +23,9 @@ copy-chrome-manifest: ## Copy src/manifest-chrome.json to dist/manifest.json
 copy-firefox-manifest: ## Copy src/manifest-firefox.json to dist/manifest.json
 	cp ./src/manifest-firefox.json ./dist/manifest.json
 
-build-chrome: clean copy copy-chrome-manifest zip-chrome ## Build Chrome project
+build-chrome: clean-chrome copy copy-chrome-manifest zip-chrome ## Build Chrome project
 
-build-firefox: clean copy copy-firefox-manifest zip-chrome ## Build Firefox project
+build-firefox: clean-firefox copy copy-firefox-manifest zip-firefox ## Build Firefox project
 
 zip-chrome: ## Zip Chrome extension
 	cd dist && zip -FSr ../import-wishlist_chrome.zip .
