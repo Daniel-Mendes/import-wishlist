@@ -1,11 +1,11 @@
 const userAgent = navigator.userAgent;
 let browserName;
 
-if (userAgent.match(/Edg\//i)) {
+if (userAgent.match(/Edg/i)) {
     browserName = "edge";
-} else if (userAgent.match(/Chrome\//i)) {
+} else if (userAgent.match(/Chrome/i)) {
     browserName = "chrome";
-} else if (userAgent.match(/Firefox\//i)) {
+} else if (userAgent.match(/Firefox/i)) {
     browserName = "firefox";
 }
 

@@ -1,10 +1,9 @@
 :root {
-    --color-primary: #67c1f5;
-    --color-secondary: #fafafa;
-    --bg-primary: #434953;
-    --bg-secondary: #fafafa;
-    --bg-dark: #121212;
-    --text-white: #ffffff;
+    --color-primary: 103, 193, 245;
+    --color-secondary: 240, 240, 240;
+    --bg-primary: 67, 73, 83;
+    --bg-dark: 18, 18, 18;
+    --text-white: 255, 255, 255;
     --nav-height: 72.19px;
 }
 
@@ -22,7 +21,7 @@
 
 ::-webkit-scrollbar-thumb {
     width: 10px;
-    background-color: var(--bg-primary);
+    background-color: rgb(var(--bg-primary));
     border-radius: 10px;
     z-index: 12;
     border: 4px solid rgba(0, 0, 0, 0);
@@ -34,39 +33,30 @@
 }
 
 ::selection {
-    background: var(--color-primary);
+    background: rgb(var(--color-primary));
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.667);
-    color: var(--text-white);
-}
-
-@font-face {
-    font-family: "motiva-sans-light";
-    src: url("../fonts/MotivaSans/MotivaSansLight.woff.woff2")
-        format("woff2");
-    font-display: auto;
-    font-style: normal;
-    font-weight: 400;
-    font-stretch: normal;
+    color: rgb(var(--text-white));
 }
 
 @font-face {
     font-family: "motiva-sans";
-    src: url("../fonts/MotivaSans/MotivaSansRegular.woff.woff2")
-        format("woff2");
-    font-display: auto;
+    src: url("../fonts/MotivaSans/MotivaSansLight.woff.woff2") format("woff2");
+    font-weight: 300;
     font-style: normal;
-    font-weight: 400;
-    font-stretch: normal;
 }
 
 @font-face {
-    font-family: "motiva-sans-bold";
-    src: url("../fonts/MotivaSans/MotivaSansBold.woff.woff2")
-        format("woff2");
-    font-display: auto;
-    font-style: normal;
+    font-family: "motiva-sans";
+    src: url("../fonts/MotivaSans/MotivaSansRegular.woff.woff2") format("woff2");
     font-weight: 400;
-    font-stretch: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "motiva-sans";
+    src: url("../fonts/MotivaSans/MotivaSansBold.woff.woff2") format("woff2");
+    font-weight: 700;
+    font-style: normal;
 }
 
 html {
@@ -75,20 +65,20 @@ html {
     font-weight: 400;
     font-style: normal;
 
-    color: var(--text-white);
+    color: rgb(var(--text-white));
 
-    background-color: var(--bg-dark);
+    background-color: rgb(var(--bg-dark));
 
     scroll-behavior: smooth;
 }
 
 a {
-    color: rgba(255, 255, 255, 0.8);
+    color: rgb(var(--color-secondary));
     text-decoration: none;
 }
 
 a:hover {
-    color: var(--text-white);
+    color: rgb(var(--text-white));
 }
 
 ul {
@@ -99,15 +89,16 @@ ul {
 
 h1,
 h2 {
-    font-family: motiva-sans-bold, Arial, Helvetica, sans-serif;
+    font-weight: 700;
+    font-style: normal;
 }
 
 h3 {
-    font-family: motiva-sans-light, Arial, Helvetica, sans-serif;
+    font-weight: 300;
+    font-style: normal;
 }
 
 .btn {
-    font-family: motiva-sans, Arial, Helvetica, sans-serif;
     font-size: 1rem;
     color: #d2efa9;
     text-align: center;
@@ -215,7 +206,7 @@ header nav ul li:hover .icon-github {
 @media screen and (min-width: 992px) {
     header nav ul ul:last-child {
         display: flex;
-        gap: 10px;
+        gap: 15px;
     }
 
     header nav ul ul:last-child li:first-child {
@@ -248,10 +239,10 @@ main {
     opacity: 0.6;
 
     border: 10px solid transparent;
-    background: linear-gradient(var(--bg-dark), var(--bg-dark)) padding-box,
+    background: linear-gradient(rgb(var(--bg-dark)), rgb(var(--bg-dark))) padding-box,
         linear-gradient(180deg, #2a475e 0%, #1b2838 80%) border-box;
     border-radius: 20px;
-    box-shadow: 0px 0px 10px var(--color-primary);
+    box-shadow: 0px 0px 10px rgb(var(--color-primary));
 
     margin: 0 auto 30px auto;
 }
@@ -339,33 +330,8 @@ main {
     align-items: center;
 }
 
-#hero-footer .icon-scroll-down {
-    transform: rotate(180deg);
-    animation: bounce 1.8s ease infinite;
-}
-
-@keyframes bounce {
-    from {
-        top: 100px
-    }
-
-    50% {
-        top: 90px
-    }
-
-    to {
-        top: 100px
-    }
-}
-
-@media screen and (min-width: 992px) {
-    #hero-footer .icon-scroll-down {
-        display: none;
-    }
-}
-
 #privacy,
-footer {
+footer p:first-child {
     background-color: #171a21;
     border-radius: 5px;
     border: 1px solid #21242d;
@@ -374,23 +340,41 @@ footer {
 }
 
 #privacy {
-    margin: 180px 0 100px 0;
+    margin: 100px 0 50px 0;
 }
 
 footer {
     margin-bottom: 20px;
 }
 
+footer p:last-child {
+    text-align: center;
+
+    background: rgba( 103, 193, 245, 0.2 );
+    border-radius: 5px;
+
+    padding: 10px 15px;
+}
+
+footer p:last-child a {
+    color: #c3e1f8;
+}
+
+footer p:last-child a:hover {
+    color: rgb(var(--text-white));
+}
+
 @media screen and (min-width: 992px) {
     #privacy,
     footer {
-      width: 80vw;
-      margin-left: auto;
-      margin-right: auto;
+        width: 50vw;
+        margin-left: auto;
+        margin-right: auto;
     }
 
     #privacy {
-        margin-top: 100px;
+        margin-top: 200px;
+        margin-bottom: 100px;
     }
 }
 
@@ -403,10 +387,6 @@ footer {
     background-position: center;
     background-size: 25px 25px;
     vertical-align: middle;
-}
-
-.icon-scroll-down {
-    background-image: url(./svg/scroll-down.svg);
 }
 
 .icon-chrome {
