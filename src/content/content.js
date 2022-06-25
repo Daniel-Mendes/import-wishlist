@@ -1,4 +1,3 @@
-
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     if (message.type === "gogGetAccessToken") {
         const jsonParse = JSON.parse(document.getElementsByTagName("pre")[0].innerHTML);

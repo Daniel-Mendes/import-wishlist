@@ -125,9 +125,8 @@ document.getElementById("btn-import-wishlist").addEventListener("click", () => {
 
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     switch (message.type) {
-        case "gogAccessTokenSuccess":
+        case "gogLoginSuccess":
             alert("success", "GOG.com account connected successfully.", 5000);
-            chrome.tabs.remove(sender.tab.id);
             setGogDetails(message.gogAccessToken);
             break;
         case "gogAccessTokenRefreshed":

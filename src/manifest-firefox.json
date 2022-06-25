@@ -30,6 +30,8 @@
       "storage",
       "identity",
       "webNavigation",
+      "webRequest",
+      "webRequestBlocking",
       "https://store.steampowered.com/wishlist/profiles/",
       "https://steamcommunity.com/*",
       "https://*.gog.com/*"

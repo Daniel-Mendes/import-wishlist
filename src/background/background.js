@@ -203,6 +203,29 @@ function refreshGogAccessToken() {
     });
 }
 
+chrome.permissions.contains({"permissions": ["webRequest", "webRequestBlocking"]}, (result) => {
+    if (result) {
+        chrome.webRequest.onHeadersReceived.addListener(
+            (details) => {
+                const headers = details.responseHeaders;
+                const blockingResponse = {};
+        
+                for (let i = 0, l = headers.length; i < l; ++i) {
+                    if (headers[i].name === "Content-Type" && headers[i].value === "application/json") {
+                        headers[i].value = "text/plain";
+                        break;
+                    }
+                }
+        
+                blockingResponse.responseHeaders = headers;
+                return blockingResponse;
+            },
+            {"urls": ["https://auth.gog.com/token*"]},
+            ["responseHeaders", "blocking"]
+        );
+    }
+});
+
 chrome.webNavigation.onCompleted.addListener((data) => {
     if (data.url && data.url.includes("https://embed.gog.com/on_login_success?origin=client")) {
         const queryParameters = data.url.split("?")[1];
@@ -243,6 +266,13 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
             break;
         case "importWishlist":
             importWishlist();
+            break;
+        case "gogAccessTokenSuccess":
+            chrome.tabs.remove(sender.tab.id);
+            chrome.runtime.sendMessage({
+                "type": "gogLoginSuccess",
+                "gogAccessToken": message.gogAccessToken
+            });
             break;
         case "refreshGogAccessToken":
             refreshGogAccessToken()
