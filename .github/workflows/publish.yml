@@ -18,8 +18,8 @@ jobs:
       - name: Save extension zip
         uses: actions/upload-artifact@v3
         with:
-          path: ${{ env.PATH_CHROME_ZIP }}
-          name: ${{ env.PATH_CHROME_ZIP }}
+          path: ${{ env.CHROME_PATH_ZIP }}
+          name: ${{ env.CHROME_PATH_ZIP }}
 
   build-firefox:
     name: Build project for Mozilla Firefox
@@ -32,8 +32,8 @@ jobs:
       - name: Save add-on xpi
         uses: actions/upload-artifact@v3
         with:
-          path: ${{ env.PATH_FIREFOX_XPI  }}
-          name: ${{ env.PATH_FIREFOX_XPI  }}
+          path: ${{ env.FIREFOX_PATH_XPI  }}
+          name: ${{ env.FIREFOX_PATH_XPI  }}
 
   publish-chrome:
     name: Publish extension to Chrome Web Store
