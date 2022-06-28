@@ -46,6 +46,7 @@ function setSteamDetails(steamUserId) {
                     return xmlDoc;
                 })
                 .then(xmlDoc => {
+                    document.getElementById("title-steam").innerHTML = chrome.i18n.getMessage("titleSteamAccount");
                     document.getElementById("btn-steam-login").style.display = "none";
 
                     document.getElementById("steam-avatar").src
@@ -76,6 +77,7 @@ function setGogDetails(gogAccessToken) {
             return response.json();
         })
         .then(data => {
+            document.getElementById("title-gog").innerHTML = chrome.i18n.getMessage("titleGogAccount");
             document.getElementById("btn-gog-login").style.display = "none";
             document.getElementById("gog-avatar").src = data.avatars.menu_user_av_big2;
             document.getElementById("gog-name").innerText = data.username;
@@ -106,11 +108,11 @@ document.getElementById("btn-steam-login").addEventListener("click", () => {
 document.getElementById("btn-import-wishlist").addEventListener("click", () => {
     chrome.storage.local.get(["gog_access_token", "steam_user_id"], (result) => {
         if (!result.gog_access_token) {
-            alert("error", "Please connect to your GOG.com account.", 5000);
+            alert("error", chrome.i18n.getMessage("alertGogNotSignIn"), 5000);
         }
         
         if (!result.steam_user_id) {
-            alert("error", "Please connect to your Steam account.", 5000);
+            alert("error", chrome.i18n.getMessage("alertSteamNotSignIn"), 5000);
         }
 
         if (result.gog_access_token && result.steam_user_id) {
@@ -126,7 +128,7 @@ document.getElementById("btn-import-wishlist").addEventListener("click", () => {
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     switch (message.type) {
         case "gogLoginSuccess":
-            alert("success", "GOG.com account connected successfully.", 5000);
+            alert("success", chrome.i18n.getMessage("alertGogSignIn"), 5000);
             setGogDetails(message.gogAccessToken);
             break;
         case "gogAccessTokenRefreshed":
@@ -137,7 +139,11 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
             break;
         case "wishlistImported":
             document.getElementById("icon-rotate").classList.remove("icon-spin");
-            alert("success", `Games added : ${message.results.added}\n Games not found : ${message.results.notFound}\n Games already in wishlist : ${message.results.alreadyInWishlist}`, 10000);
+            alert("success",
+                `${chrome.i18n.getMessage("alertWishlistImportedGamesAdded")} : ${message.results.added}
+                 ${chrome.i18n.getMessage("alertWishlistImportedGamesNotFound")} : ${message.results.notFound}
+                 ${chrome.i18n.getMessage("alertWishlistImportedGamesAlreadyInWishlist")} : ${message.results.alreadyInWishlist}`,
+                10000);
             break;
         case "alert":
             alert(message.status, message.message, message.timeout);

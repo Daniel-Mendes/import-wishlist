@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="__MSG_@@ui_locale__">
 <head>
     <meta charset="UTF-8">
-    <title>Import Wishlist</title>
+    <title>__MSG_extName__</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="popup.css">
 </head>
@@ -11,14 +11,14 @@
         <div id="alert"></div>
         
         <div id="container-steam">
-            <p class="container-title">Your Steam account</p>
+            <p class="container-title" id="title-steam">__MSG_titleSteamSignIn__</p>
             <button id="btn-steam-login"><i id="icon-steam-logo"></i></button>
             <div class="container-details" id="details-steam">
-                <img src="" alt="" class="account-avatar" id="steam-avatar">
+                <img src="" alt="Your Steam account avatar" class="account-avatar" id="steam-avatar">
                 <a href="" class="account-name" id="steam-name" target="_blank"></a>
             </div>
             <div class="container-wishlist">
-                <p class="wishlist-count" id="steam-wishlist-count"><i class="icon-heart"></i><span></span> games</p>
+                <p class="wishlist-count" id="steam-wishlist-count"><i class="icon-heart"></i><span></span> __MSG_wishlistCountGames__</p>
             </div>
         </div>
 
@@ -27,24 +27,25 @@
         </div>
 
         <div id="container-gog">
-            <p class="container-title">Your GOG.com account</p>
+            <p class="container-title" id="title-gog">__MSG_titleGogSignIn__</p>
             <button id="btn-gog-login"><i id="icon-gog-logo"></i></button>
             <div class="container-details" id="details-gog">
-                <img src="" alt="" class="account-avatar" id="gog-avatar">
+                <img src="" alt="Your Gog account avatar" class="account-avatar" id="gog-avatar">
                 <a href="" class="account-name" id="gog-name" target="_blank"></a>
             </div>
             <div  class="container-wishlist">
-                <p class="wishlist-count" id="gog-wishlist-count"><i class="icon-heart"></i><span></span> games</p>
+                <p class="wishlist-count" id="gog-wishlist-count"><i class="icon-heart"></i><span></span> __MSG_wishlistCountGames__</p>
             </div>
         </div>
 
         <div id="container-import-wishlist"> 
             <button id="btn-import-wishlist">
                 <i id="icon-rotate"></i>
-                Import wishlist
+                __MSG_btnImport__
             </button>
         </div>
     </main>
+    <script src="../assets/js/i18n.js"></script>
     <script src="popup.js"></script>
 </body>
 </html>
