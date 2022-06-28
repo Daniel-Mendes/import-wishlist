@@ -1,0 +1,47 @@
+{
+    "extName": {
+        "message": "Import Wishlist"
+    },
+    "extDescription": {
+        "message": "Importez votre liste de souhaits Steam sur votre compte GOG."
+    },
+    "alertGogNotSignIn": {
+        "message": "Veuillez vous connecter à votre compte GOG."
+    },
+    "alertSteamNotSignIn": {
+        "message": "Veuillez vous connecter à votre compte Steam."
+    },
+    "alertGogSignIn": {
+        "message": "Connexion au compte GOG réussi."
+    },
+    "alertSteamSignIn": {
+        "message": "Connexion au compte Steam réussi."
+    },
+    "alertWishlistImportedGamesAdded": {
+        "message": "Jeux ajoutés"
+    },
+    "alertWishlistImportedGamesNotFound": {
+        "message": "Jeux non trouvés"
+    },
+    "alertWishlistImportedGamesAlreadyInWishlist": {
+        "message": "Jeux déjà dans la liste de souhaits"
+    },
+    "titleSteamSignIn": {
+        "message": "Connectez-vous à votre compte Steam"
+    },
+    "titleSteamAccount": {
+        "message": "Votre compte Steam"
+    },
+    "titleGogSignIn": {
+        "message": "Connectez-vous à votre compte GOG"
+    },
+    "titleGogAccount": {
+        "message": "Votre compte GOG"
+    },
+    "wishlistCountGames": {
+        "message": "jeux"
+    },
+    "btnImport": {
+        "message": "Importez la liste de souhaits"
+    }
+}

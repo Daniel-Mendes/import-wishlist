@@ -32,7 +32,7 @@ function startSteamLogin() {
             chrome.runtime.sendMessage({
                 "type": "alert",
                 "status": "success",
-                "message": "Steam account connected successfully.",
+                "message": chrome.i18n.getMessage("alertSteamSignIn"),
                 "timeout": 5000,
             });
             
@@ -73,7 +73,7 @@ function getGogWishlist() {
                 chrome.runtime.onMessage({
                     "type": "alert",
                     "status": "error",
-                    "message": "Please connect to your GOG.com account.",
+                    "message":  chrome.i18n.getMessage("alertGogNotSignIn"),
                     "timeout": 5000,
                 });
             }
@@ -286,7 +286,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
                     chrome.runtime.onMessage({
                         "type": "alert",
                         "status": "error",
-                        "message": "Please connect to your GOG.com account.",
+                        "message": chrome.i18n.getMessage("alertGogNotSignIn"),
                         "timeout": 5000,
                     });
                 });
