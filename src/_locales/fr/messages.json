@@ -1,8 +1,8 @@
 {
-    "extName": {
+    "extensionName": {
         "message": "Import Wishlist"
     },
-    "extDescription": {
+    "extensionDescription": {
         "message": "Importez votre liste de souhaits Steam sur votre compte GOG."
     },
     "alertGogNotSignIn": {
