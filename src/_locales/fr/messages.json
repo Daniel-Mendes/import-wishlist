@@ -3,7 +3,7 @@
         "message": "Import Wishlist"
     },
     "extensionDescription": {
-        "message": "Importez votre liste de souhaits Steam sur votre compte GOG."
+        "message": "Importer votre liste de souhaits Steam sur votre compte GOG."
     },
     "alertGogNotSignIn": {
         "message": "Veuillez vous connecter à votre compte GOG."
