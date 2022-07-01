@@ -46,14 +46,14 @@ function setSteamDetails(steamUserId) {
                     return xmlDoc;
                 })
                 .then(xmlDoc => {
-                    document.getElementById("title-steam").innerHTML = chrome.i18n.getMessage("titleSteamAccount");
+                    document.getElementById("title-steam").textContent = chrome.i18n.getMessage("titleSteamAccount");
                     document.getElementById("btn-steam-login").style.display = "none";
 
                     document.getElementById("steam-avatar").src
                             = xmlDoc.getElementsByTagName("avatarFull")[0].childNodes[0].nodeValue;
                     document.getElementById("steam-name").href
                             = `https://store.steampowered.com/wishlist/id/${xmlDoc.getElementsByTagName("customURL")[0].childNodes[0].nodeValue}`;
-                    document.getElementById("steam-name").innerText
+                    document.getElementById("steam-name").textContent
                             = xmlDoc.getElementsByTagName("steamID")[0].childNodes[0].nodeValue;
                     document.getElementById("details-steam").style.display = "block";
                 });
@@ -62,7 +62,7 @@ function setSteamDetails(steamUserId) {
     chrome.runtime.sendMessage({
         "type": "getSteamWishlist",
     }, (response) => {
-        document.getElementById("steam-wishlist-count").getElementsByTagName("span")[0].innerText = response.steamWishlistCount;
+        document.getElementById("steam-wishlist-count").getElementsByTagName("span")[0].textContent = response.steamWishlistCount;
         document.getElementsByClassName("container-wishlist")[0].style.display = "block";
     });
 }
@@ -77,10 +77,10 @@ function setGogDetails(gogAccessToken) {
             return response.json();
         })
         .then(data => {
-            document.getElementById("title-gog").innerHTML = chrome.i18n.getMessage("titleGogAccount");
+            document.getElementById("title-gog").textContent = chrome.i18n.getMessage("titleGogAccount");
             document.getElementById("btn-gog-login").style.display = "none";
             document.getElementById("gog-avatar").src = data.avatars.menu_user_av_big2;
-            document.getElementById("gog-name").innerText = data.username;
+            document.getElementById("gog-name").textContent = data.username;
             document.getElementById("gog-name").href = `https://www.gog.com/u/${data.username}/wishlist`;
             document.getElementById("details-gog").style.display = "block";
         });
@@ -88,7 +88,7 @@ function setGogDetails(gogAccessToken) {
     chrome.runtime.sendMessage({
         "type": "getGogWishlist",
     }, (response) => {
-        document.getElementById("gog-wishlist-count").getElementsByTagName("span")[0].innerText = response.gogWishlistCount;
+        document.getElementById("gog-wishlist-count").getElementsByTagName("span")[0].textContent = response.gogWishlistCount;
         document.getElementsByClassName("container-wishlist")[1].style.display = "block";
     });
 }
