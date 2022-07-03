@@ -1,7 +1,7 @@
 {
    "action": {
       "default_popup": "popup/popup.html",
-      "default_title": "Import Wishlist"
+      "default_title": "__MSG_extensionName__"
    },
    "author": "Daniel Mendes",
    "background": {
@@ -13,7 +13,11 @@
    } ],
    "default_locale": "en",
    "description": "__MSG_extensionDescription__",
-   "host_permissions": [ "https://store.steampowered.com/wishlist/profiles/", "https://steamcommunity.com/*", "https://*.gog.com/*" ],
+   "host_permissions": [
+      "https://store.steampowered.com/wishlist/profiles/",
+      "https://steamcommunity.com/*",
+      "https://*.gog.com/*"
+   ],
    "icons": {
       "16": "assets/icons/icon-16.png",
       "48": "assets/icons/icon-48.png",
@@ -21,6 +25,10 @@
    },
    "manifest_version": 3,
    "name": "__MSG_extensionName__",
-   "permissions": [ "tabs", "storage", "identity", "webNavigation" ],
+   "permissions": [
+      "storage",
+      "identity",
+      "webNavigation"
+   ],
    "version": "0.1.0"
 }
