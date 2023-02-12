@@ -1,0 +1,9 @@
+
+[build]
+  command = "npm run build"
+  functions = "lambda"
+  publish = "dist"
+
+[dev]
+  targetPort = 1234
+  command = "npm run dev"

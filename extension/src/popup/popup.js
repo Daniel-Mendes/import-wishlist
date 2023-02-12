@@ -109,19 +109,19 @@ document.getElementById("btn-import-wishlist").addEventListener("click", () => {
     chrome.storage.local.get(["gog_access_token", "steam_user_id"], (result) => {
         if (!result.gog_access_token) {
             alert("error", chrome.i18n.getMessage("alertGogNotSignIn"), 5000);
+            return;
         }
         
         if (!result.steam_user_id) {
             alert("error", chrome.i18n.getMessage("alertSteamNotSignIn"), 5000);
+            return;
         }
+        
+        document.getElementById("icon-rotate").classList.add("icon-spin");
 
-        if (result.gog_access_token && result.steam_user_id) {
-            document.getElementById("icon-rotate").classList.add("icon-spin");
-
-            chrome.runtime.sendMessage({
-                "type": "importWishlist",
-            });
-        }
+        chrome.runtime.sendMessage({
+            "type": "importWishlist",
+        });
     });
 });
 

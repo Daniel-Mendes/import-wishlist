@@ -44,7 +44,7 @@ function startSteamLogin() {
     });
 }
 
-function getGogWishlist() {
+async function getGogWishlist() {
     return new Promise((resolve, reject) => {
         chrome.storage.local.get(["gog_access_token"], (result) => {
             if (result.gog_access_token) {
@@ -57,18 +57,17 @@ function getGogWishlist() {
                     }
                 }).then(response => {
                     return response.json();
-                })
-                    .then(data => {
-                        const gogWishlistID = [];
-                        Object.entries(data.wishlist).forEach(item => {
-                            const [id] = item;
-                            gogWishlistID.push(parseInt(id));
-                        });
-                        resolve(gogWishlistID);
-                    })
-                    .catch(error => {
-                        console.log(error);
+                }).then(data => {
+                    const gogWishlistID = [];
+                    Object.entries(data.wishlist).forEach(item => {
+                        const [id] = item;
+                        gogWishlistID.push(parseInt(id));
                     });
+                    resolve(gogWishlistID);
+                })
+                .catch(error => {
+                    console.log(error);
+                });
             } else {
                 chrome.runtime.onMessage({
                     "type": "alert",
@@ -81,8 +80,7 @@ function getGogWishlist() {
     });
 }
 
-/* eslint no-constant-condition: ["error", { "checkLoops": false }]*/
-function getSteamWishlist() {
+async function getSteamWishlist() {
     return new Promise((resolve, reject) => {
         chrome.storage.local.get(["steam_user_id"], async(result) => {
             let pageNumber = 0;
@@ -103,10 +101,9 @@ function getSteamWishlist() {
                 if (data.length === 0) {
                     break;
                 } else {
-                    Object.entries(data).forEach(item => {
-                        steamWishlist.push(item[1].name);
+                    Object.keys(data).forEach((key) => {
+                        steamWishlist.push(key);
                     });
-        
                     pageNumber++;
                 }
             } while (true);
@@ -123,53 +120,53 @@ async function addSteamWishlistToGog(steamWishlist, gogWishlist) {
         "alreadyInWishlist": 0,
     };
 
-    const requests = steamWishlist.map((game) => fetch(`https://embed.gog.com/games/ajax/filtered?mediaType=game&search=${game}`));
-    const responses = await Promise.all(requests);
-    const promises = responses.map((response) => response.json());
-    const data = await Promise.all(promises);
-    data.forEach((search, index) => {
-        if (search.products.length === 0) {
-            results.notFound++;
-        } else if (search.products.length === 1) {
-            if (steamWishlist[index].toLowerCase() === search.products[0].title.toLowerCase()) {
-                if (gogWishlist.includes(search.products[0].id)) {
-                    results.alreadyInWishlist++;
-                } else {
-                    fetch(`https://embed.gog.com/user/wishlist/add/${search.products[0].id}`);
-                    results.added++;
-                }
-            }
-        } else {
-            search.products.forEach((product) => {
-                if (product.title.toLowerCase() === steamWishlist[index].toLowerCase()) {
-                    if (gogWishlist.includes(product.id)) {
+    const steamGamesNotInGog = steamWishlist.filter((game) => !gogWishlist.includes(game));
+    results.alreadyInWishlist = steamWishlist.length - steamGamesNotInGog.length;
+
+    await fetch('http://localhost:8888/.netlify/functions/get-gog-game-id', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(steamGamesNotInGog)
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log(data);
+    });
+    
+
+    /*
+    const GoGExternalGameID = 5;
+    data.forEach((game) => {
+        if (game.length > 0) {
+            game.external_games.filter((external_game) => {
+                if (external_game.category === GoGExternalGameID) {
+                    if (gogWishlist.includes(external_game.game)) {
                         results.alreadyInWishlist++;
                     } else {
-                        fetch(`https://embed.gog.com/user/wishlist/add/${product.id}`);
+                        fetch(`https://embed.gog.com/user/wishlist/add/${external_game.id}`);
                         results.added++;
                     }
                 }
             });
+        } else {
+            results.notFound++;
         }
-    });
+    });*/
 
     return results;
 }
 
-function importWishlist() {
-    getSteamWishlist()
-        .then(steamWishlist => {
-            getGogWishlist()
-                .then(gogWishlist => {
-                    addSteamWishlistToGog(steamWishlist, gogWishlist)
-                        .then(results => {
-                            chrome.runtime.sendMessage({
-                                "type": "wishlistImported",
-                                "results": results,
-                            });
-                        });
-                });
-        });
+async function importWishlist() {
+    const [steamWishlist, gogWishlist] = await Promise.all([getSteamWishlist(), getGogWishlist()]);
+
+    const results = await addSteamWishlistToGog(steamWishlist, gogWishlist);
+
+    chrome.runtime.sendMessage({
+        "type": "wishlistImported",
+        "results": results,
+    });
 }
 
 function refreshGogAccessToken() {

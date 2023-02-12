@@ -1,0 +1,14 @@
+{
+  "scripts": {
+    "dev": "parcel serve index.html",
+    "build": "npx cross-env NODE_OPTIONS=--openssl-legacy-provider netlify-lambda build netlify/functions && parcel build index.html",
+    "postinstall": "netlify-lambda install"
+  },
+  "dependencies": {
+    "igdb-api-node": "^5.0.2",
+    "netlify-lambda": "^2.0.15"
+  },
+  "devDependencies": {
+    "parcel": "^2.8.3"
+  }
+}

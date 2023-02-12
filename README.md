@@ -12,6 +12,6 @@ This is a chrome extension that helps you to import your Steam wishlist to your 
 
 The extension is available on Chrome Web Store, Microsoft Edge Add-ons and Firefox Add-ons.
 
-[![Chrome download link](badges/chrome.png)](https://chrome.google.com/webstore/detail/import-wishlist/jenjpehgcedkjfjmelkodhagcogpbmgl)
-[![Edge download link](badges/edge.png)](https://microsoftedge.microsoft.com/addons/detail/import-wishlist/fpjkbmpnfckpnaiijocjdfcjddnkjhnb)
-[![Firefox download link](badges/firefox.png)](https://addons.mozilla.org/firefox/addon/import-wishlist)
+[![Chrome download link](.github/badges/chrome.png)](https://chrome.google.com/webstore/detail/import-wishlist/jenjpehgcedkjfjmelkodhagcogpbmgl)
+[![Edge download link](.github/badges/edge.png)](https://microsoftedge.microsoft.com/addons/detail/import-wishlist/fpjkbmpnfckpnaiijocjdfcjddnkjhnb)
+[![Firefox download link](.github/badges/firefox.png)](https://addons.mozilla.org/firefox/addon/import-wishlist)
