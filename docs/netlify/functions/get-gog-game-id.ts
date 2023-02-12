@@ -1,6 +1,5 @@
-import { Handler, HandlerContext, HandlerEvent } from '@netlify/functions'
-import { Apicalypse } from 'apicalypse';
-import igdb from 'igdb-api-node';
+import { Handler, HandlerContext, HandlerEvent } from '@netlify/functions';
+import axios from "axios";
 
 const STEAM_CATEGORY_ID : number = 1;
 const GOG_CATEGORY_ID : number = 5;
@@ -33,46 +32,61 @@ const handler: Handler = async (event : HandlerEvent, context : HandlerContext) 
     })
     .then(response => response.json())
     .then(async data => {
-        const client = igdb(TWITCH_CLIENT_ID, data.access_token);
+        let queries = "";
 
-        // Split query into 10 games with multi query
-        const queries = [];
-        for (let i = 0; i < body.length; i += 10) {
-            const query = client.query('games', `external_games_${i}`)
-                                .fields(['name', 'external_games.*'])
-                                .where(` external_games.uid = (${body.slice(i, i + 10).join(',')}) & external_games.category = ${STEAM_CATEGORY_ID}`);
-
-            queries.push(query);
+        for (let i = 0; i < body.length; i+= 10) {
+            const gameIds = body.slice(i, i + 10).join(',');
+            queries += `query games "external_games_${i}" {
+                            fields name, external_games.*;
+                            where external_games.uid = (${gameIds})
+                                & external_games.category = ${STEAM_CATEGORY_ID};
+                        };`;
         }
 
-        const response = await client.multi(queries).request('/multiquery');
+        const options = {
+            method: 'POST',
+            url: 'https://api.igdb.com/v4/multiquery',
+            headers: {
+              'Content-Type': 'text/plain',
+              'Client-ID': TWITCH_CLIENT_ID,
+              Authorization: `Bearer ${data.access_token}`
+            },
+            data: queries
+          };
+          
+          return axios.request(options)
+          .then(function (response) {
+            if (response.status !== 200) {
+                return { statusCode: response.status, body: response.statusText };
+            }
+        
+            if (response.data.length === 0) {
+                return { statusCode: 404, body: 'No game found with the provided gameIds' };
+            }
 
-        if (response.status !== 200) {
-            return { statusCode: response.status, body: response.statusText };
-        }
-    
-        if (response.data.length === 0) {
-            return { statusCode: 404, body: 'No game found with the provided gameIds' };
-        }
-
-        // Get the GOG game ids
-        const gogGameIds = [];
-        for (const query of response.data) {
-            for (const game of query.result) {
-                const gogGame = game.external_games.find(externalGame => externalGame.category === GOG_CATEGORY_ID);
-                
-                if (gogGame) {
-                    gogGameIds.push(gogGame.uid);
-                } else {
-                    gogGameIds.push(null);
+            // Get the GOG game ids
+            const gogGameIds = [];
+            for (const query of response.data) {
+                for (const game of query.result) {
+                    const gogGame = game.external_games.find(externalGame => externalGame.category === GOG_CATEGORY_ID);
+                    
+                    if (gogGame) {
+                        gogGameIds.push(gogGame.uid);
+                    } else {
+                        gogGameIds.push(null);
+                    }
                 }
             }
-        }
 
-        return {
-            statusCode: 200,
-            body: JSON.stringify({ message: gogGameIds }),
-        };
+            return {
+                statusCode: 200,
+                body: JSON.stringify({ message: gogGameIds }),
+            };
+          }).catch(function (error) {
+            console.error(error);
+
+            return { statusCode: 500, body: error.toString() };
+          });
     })
     .catch(error => {
         return { statusCode: 500, body: error.toString() };
