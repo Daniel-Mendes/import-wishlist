@@ -1,14 +1,15 @@
 {
   "scripts": {
     "dev": "parcel serve index.html",
-    "build": "netlify-lambda build netlify/functions && parcel build index.html",
-    "postinstall": "netlify-lambda install"
+    "build": "parcel build index.html"
   },
   "dependencies": {
+    "@netlify/functions": "^1.4.0",
+    "@types/igdb-api-node": "^5.0.0",
     "igdb-api-node": "^5.0.2"
   },
   "devDependencies": {
-    "netlify-lambda": "^2.0.15",
+    "@types/node": "^18.13.0",
     "parcel": "^2.8.3"
   }
 }

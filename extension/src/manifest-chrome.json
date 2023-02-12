@@ -16,7 +16,8 @@
    "host_permissions": [
       "https://store.steampowered.com/wishlist/profiles/",
       "https://steamcommunity.com/*",
-      "https://*.gog.com/*"
+      "https://*.gog.com/*",
+      "https://import-wishlist.netlify.app/.netlify/functions/*"
    ],
    "icons": {
       "16": "assets/icons/icon-16.png",
