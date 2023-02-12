@@ -123,7 +123,7 @@ async function addSteamWishlistToGog(steamWishlist, gogWishlist) {
     const steamGamesNotInGog = steamWishlist.filter((game) => !gogWishlist.includes(game));
     results.alreadyInWishlist = steamWishlist.length - steamGamesNotInGog.length;
 
-    await fetch('http://localhost:8888/.netlify/functions/get-gog-game-id', {
+    await fetch('https://import-wishlist.netlify.app/.netlify/functions/get-gog-game-id', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
