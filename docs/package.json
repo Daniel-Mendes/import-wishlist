@@ -5,10 +5,11 @@
     "postinstall": "netlify-lambda install"
   },
   "dependencies": {
-    "igdb-api-node": "^5.0.2",
-    "netlify-lambda": "^2.0.15"
+    "igdb-api-node": "^5.0.2"
   },
   "devDependencies": {
+    "cross-env": "^7.0.3",
+    "netlify-lambda": "^2.0.15",
     "parcel": "^2.8.3"
   }
 }
