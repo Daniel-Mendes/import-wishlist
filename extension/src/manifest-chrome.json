@@ -14,7 +14,7 @@
    "default_locale": "en",
    "description": "__MSG_extensionDescription__",
    "host_permissions": [
-      "https://store.steampowered.com/wishlist/profiles/",
+      "https://store.steampowered.com/wishlist/profiles/*",
       "https://steamcommunity.com/*",
       "https://*.gog.com/*",
       "https://import-wishlist.netlify.app/.netlify/functions/*"
@@ -31,5 +31,5 @@
       "identity",
       "webNavigation"
    ],
-   "version": "0.1.0"
+   "version": "0.1.1"
 }

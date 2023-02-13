@@ -1,13 +1,13 @@
 {
+   "action": {
+      "default_popup": "popup/popup.html",
+      "default_title": "__MSG_extensionName__"
+   },
    "author": "Daniel Mendes",
    "background": {
       "scripts": [
          "background/background.js"
       ]
-   },
-   "browser_action": {
-      "default_popup": "popup/popup.html",
-      "default_title": "__MSG_extensionName__"
    },
    "browser_specific_settings": {
       "gecko": {
@@ -20,22 +20,25 @@
    } ],
    "default_locale": "en",
    "description": "__MSG_extensionDescription__",
+   "host_permissions": [
+      "https://store.steampowered.com/wishlist/profiles/*",
+      "https://steamcommunity.com/*",
+      "https://*.gog.com/*",
+      "https://import-wishlist.netlify.app/.netlify/functions/*"
+   ],
    "icons": {
       "16": "assets/icons/icon-16.png",
       "48": "assets/icons/icon-48.png",
       "128": "assets/icons/icon-128.png"
    },
-   "manifest_version": 2,
+   "manifest_version": 3,
    "name": "__MSG_extensionName__",
    "permissions": [
       "storage",
       "identity",
       "webNavigation",
       "webRequest",
-      "webRequestBlocking",
-      "https://store.steampowered.com/wishlist/profiles/",
-      "https://steamcommunity.com/*",
-      "https://*.gog.com/*"
+      "webRequestBlocking"
    ],
-   "version": "0.1.0"
+   "version": "0.1.1"
 }
