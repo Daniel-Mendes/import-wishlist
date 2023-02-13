@@ -43,5 +43,8 @@
     },
     "btnImport": {
         "message": "Import wishlist"
+    },
+    "alertErrorWhileImportingWishlist": {
+        "message": "Error while importing wishlist, try again."
     }
 }

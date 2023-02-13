@@ -43,5 +43,8 @@
     },
     "btnImport": {
         "message": "Importez la liste de souhaits"
+    },
+    "alertErrorWhileImportingWishlist": {
+        "message": "Erreur lors de l'importation de la liste de souhaits, réessayez."
     }
 }

@@ -72,7 +72,7 @@ async function getGogWishlist() {
                 chrome.runtime.onMessage({
                     "type": "alert",
                     "status": "error",
-                    "message":  chrome.i18n.getMessage("alertGogNotSignIn"),
+                    "message": chrome.i18n.getMessage("alertGogNotSignIn"),
                     "timeout": 5000,
                 });
             }
@@ -92,7 +92,8 @@ async function getSteamWishlist() {
                     "method": "GET",
                     "headers": {
                         "Accept": "application/json",
-                        "Content-Type": "application/json"
+                        "Content-Type": "application/json",
+                        "Allow-Control-Allow-Origin": "*",
                     }
                 });
                 
@@ -120,52 +121,72 @@ async function addSteamWishlistToGog(steamWishlist, gogWishlist) {
         "alreadyInWishlist": 0,
     };
 
-    const steamGamesNotInGog = steamWishlist.filter((game) => !gogWishlist.includes(game));
-    results.alreadyInWishlist = steamWishlist.length - steamGamesNotInGog.length;
+    const queries = [];
 
-    await fetch('https://import-wishlist.netlify.app/.netlify/functions/get-gog-game-id', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(steamGamesNotInGog)
-    })
-    .then(response => response.json())
-    .then(data => {
-        console.log(data);
-    });
-    
-
-    /*
-    const GoGExternalGameID = 5;
-    data.forEach((game) => {
-        if (game.length > 0) {
-            game.external_games.filter((external_game) => {
-                if (external_game.category === GoGExternalGameID) {
-                    if (gogWishlist.includes(external_game.game)) {
-                        results.alreadyInWishlist++;
-                    } else {
-                        fetch(`https://embed.gog.com/user/wishlist/add/${external_game.id}`);
-                        results.added++;
-                    }
-                }
+    for (let i = 0; i < steamWishlist.length; i+= 100) {
+        const query = fetch('https://import-wishlist.netlify.app/.netlify/functions/get-gog-game-id', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(steamWishlist.slice(i, i + 100)),
+            })
+            .then(response => response.json())
+            .then(data => {
+                return data;
             });
-        } else {
-            results.notFound++;
-        }
-    });*/
 
-    return results;
+        queries.push(query);
+    }
+
+    return Promise.all(queries)
+    .then(responses => {
+        return responses.flat();
+    })
+    .then(data => {
+        for (const gogGameId of data) {
+            if (isNaN(gogGameId)) {
+                throw new Error(chrome.i18n.getMessage("alertErrorWhileImportingWishlist"));
+            }
+
+            if (gogGameId === -1) {
+                results.notFound++;
+                continue;
+            }
+
+            if (gogWishlist.includes(gogGameId)) {
+                results.alreadyInWishlist++;
+                continue;
+            } else {
+                fetch(`https://embed.gog.com/user/wishlist/add/${gogGameId}`);
+                results.added++;
+                continue;
+            }
+        }
+
+        console.log(results);
+
+        return results;
+    })
+    .catch(error => {
+        chrome.runtime.sendMessage({
+            "type": "alert",
+            "status": "error",
+            "message": error.message,
+            "timeout": 5000,
+        });
+    });
 }
 
 async function importWishlist() {
     const [steamWishlist, gogWishlist] = await Promise.all([getSteamWishlist(), getGogWishlist()]);
 
-    const results = await addSteamWishlistToGog(steamWishlist, gogWishlist);
-
-    chrome.runtime.sendMessage({
-        "type": "wishlistImported",
-        "results": results,
+    addSteamWishlistToGog(steamWishlist, gogWishlist)
+    .then(results => {
+        chrome.runtime.sendMessage({
+            "type": "wishlistImported",
+            "results": results,
+        });
     });
 }
 
