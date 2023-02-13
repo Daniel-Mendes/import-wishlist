@@ -38,26 +38,26 @@ function alert(status, message, timeout) {
 
 function setSteamDetails(steamUserId) {
     fetch(`https://steamcommunity.com/profiles/${steamUserId}/?xml=1`)
-        .then(response => {
-            response.text()
-                .then((content) => {
-                    const parser = new DOMParser();
-                    const xmlDoc = parser.parseFromString(content, "text/xml");
-                    return xmlDoc;
-                })
-                .then(xmlDoc => {
-                    document.getElementById("title-steam").textContent = chrome.i18n.getMessage("titleSteamAccount");
-                    document.getElementById("btn-steam-login").style.display = "none";
+    .then(response => {
+        response.text()
+        .then((content) => {
+            const parser = new DOMParser();
+            const xmlDoc = parser.parseFromString(content, "text/xml");
+            return xmlDoc;
+        })
+        .then(xmlDoc => {
+            document.getElementById("title-steam").textContent = chrome.i18n.getMessage("titleSteamAccount");
+            document.getElementById("btn-steam-login").style.display = "none";
 
-                    document.getElementById("steam-avatar").src
-                            = xmlDoc.getElementsByTagName("avatarFull")[0].childNodes[0].nodeValue;
-                    document.getElementById("steam-name").href
-                            = `https://store.steampowered.com/wishlist/id/${xmlDoc.getElementsByTagName("customURL")[0].childNodes[0].nodeValue}`;
-                    document.getElementById("steam-name").textContent
-                            = xmlDoc.getElementsByTagName("steamID")[0].childNodes[0].nodeValue;
-                    document.getElementById("details-steam").style.display = "block";
-                });
+            document.getElementById("steam-avatar").src
+                    = xmlDoc.getElementsByTagName("avatarFull")[0].childNodes[0].nodeValue;
+            document.getElementById("steam-name").href
+                    = `https://store.steampowered.com/wishlist/id/${xmlDoc.getElementsByTagName("customURL")[0].childNodes[0].nodeValue}`;
+            document.getElementById("steam-name").textContent
+                    = xmlDoc.getElementsByTagName("steamID")[0].childNodes[0].nodeValue;
+            document.getElementById("details-steam").style.display = "block";
         });
+    });
 
     chrome.runtime.sendMessage({
         "type": "getSteamWishlist",
