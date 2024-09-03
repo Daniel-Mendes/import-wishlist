@@ -44,7 +44,7 @@ jobs:
       CHROME_EXTENSION_ID: jenjpehgcedkjfjmelkodhagcogpbmgl
     steps:
       - name: Download extension zip
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4.1.7
         with:
           name: ${{ env.CHROME_PATH_ZIP }}
           path: .
@@ -66,7 +66,7 @@ jobs:
       EDGE_PRODUCT_ID: fpjkbmpnfckpnaiijocjdfcjddnkjhnb
     steps:
       - name: Download add-on zip
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4.1.7
         with:
           name: ${{ env.CHROME_PATH_ZIP }}
           path: .
@@ -88,7 +88,7 @@ jobs:
       FIREFOX_ADDON_GUID: '{720b5715-5fbe-442b-bf44-be3bb4bb774a}'
     steps:
       - name: Download addon xpi
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4.1.7
         with:
           name: ${{ env.FIREFOX_PATH_XPI }}
           path: .
