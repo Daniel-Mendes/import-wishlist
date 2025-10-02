@@ -276,6 +276,13 @@ chrome.permissions.contains(
 );
 
 chrome.webNavigation.onCompleted.addListener((data) => {
+  // GOG OAuth2 credentials (public)
+  // Please don't change them unless you know what you're doing
+  // (you'll need to register your own application)
+  const CLIENT_ID = "46899977096215655";
+  const CLIENT_SECRET =
+    "9d85c43b1482497dbbce61f6e4aa173a433796eeae2ca8c5f6129f2dc4de46d9";
+
   if (
     data.url &&
     data.url.includes("https://embed.gog.com/on_login_success?origin=client")
@@ -287,9 +294,8 @@ chrome.webNavigation.onCompleted.addListener((data) => {
 
     chrome.windows.create({
       url: `https://auth.gog.com/token?${new URLSearchParams({
-        client_id: "46899977096215655",
-        client_secret:
-          "9d85c43b1482497dbbce61f6e4aa173a433796eeae2ca8c5f6129f2dc4de46d9",
+        client_id: CLIENT_ID,
+        client_secret: CLIENT_SECRET,
         grant_type: "authorization_code",
         code: urlParameters.get("code"),
         redirect_uri: encodeURI(
@@ -307,7 +313,7 @@ chrome.webNavigation.onCompleted.addListener((data) => {
   if (
     data.url &&
     data.url.includes(
-      "https://auth.gog.com/token?client_id=46899977096215655&client_secret=9d85c43b1482497dbbce61f6e4aa173a433796eeae2ca8c5f6129f2dc4de46d9"
+      `https://auth.gog.com/token?client_id=${CLIENT_ID}&client_secret=${CLIENT_SECRET}`
     )
   ) {
     chrome.tabs.sendMessage(data.tabId, {

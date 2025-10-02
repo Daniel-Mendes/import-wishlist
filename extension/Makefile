@@ -13,8 +13,7 @@ clean-chrome: ## Clean dist/ folder and  import-wishlist_chrome.zip files
 clean-firefox: ## Clean dist/ folder and   import-wishlist_firefox.zip files
 	rm -rf dist import-wishlist_firefox.zip
 
-copy: ## Copy src/ folder to dist/ folder
-	mkdir -p ./dist
+copy: ## Copy src/ folder to dist/ folder -> mkdir -p ./dist
 	cp -r ./src/_locales ./src/assets ./src/background ./src/content ./src/popup dist/
 
 copy-chrome-manifest: ## Copy src/manifest-chrome.json to dist/manifest.json
