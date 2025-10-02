@@ -1,307 +1,318 @@
 ::-webkit-scrollbar {
-    height: 12px;
-    width: 14px;
-    background: transparent;
-    z-index: 12;
-    overflow: visible;
+  height: 12px;
+  width: 14px;
+  background: transparent;
+  z-index: 12;
+  overflow: visible;
 }
 
 ::-webkit-scrollbar-corner {
-    background: #202020;
+  background: #202020;
 }
 
 ::-webkit-scrollbar-thumb {
-    width: 10px;
-    background-color: #434953;
-    border-radius: 10px;
-    z-index: 12;
-    border: 4px solid rgba(0,0,0,0);
-    background-clip: padding-box;
-    transition: background-color .32s ease-in-out;
-    margin: 4px;
-    min-height: 32px;
-    min-width: 32px;
+  width: 10px;
+  background-color: #434953;
+  border-radius: 10px;
+  z-index: 12;
+  border: 4px solid rgba(0, 0, 0, 0);
+  background-clip: padding-box;
+  transition: background-color 0.32s ease-in-out;
+  margin: 4px;
+  min-height: 32px;
+  min-width: 32px;
 }
 
 ::selection {
-    background: #54a5d4;
-    text-shadow: 1px 1px 2px #000000aa;
-    color: #fff;
+  background: #54a5d4;
+  text-shadow: 1px 1px 2px #000000aa;
+  color: #fff;
 }
-    
+
 @font-face {
-    font-family: "motiva-sans";
-    src: url("../assets/fonts/MotivaSans/MotivaSansRegular.woff.woff2") format("woff2");
-    font-display: auto;
-    font-style: normal;
-    font-weight: 400;
-    font-stretch: normal;
+  font-family: "motiva-sans";
+  src: url("../assets/fonts/MotivaSans/MotivaSansRegular.woff.woff2")
+    format("woff2");
+  font-display: auto;
+  font-style: normal;
+  font-weight: 400;
+  font-stretch: normal;
 }
 
 html {
-    font-size: 12px;
+  font-size: 12px;
 }
 
 html,
 body {
-    margin: 0;
-    padding: 0;
+  margin: 0;
+  padding: 0;
 
-    font-family: motiva-sans, Arial, Helvetica, sans-serif;
-    font-weight: 400;
-    font-style: normal;
+  font-family: motiva-sans, Arial, Helvetica, sans-serif;
+  font-weight: 400;
+  font-style: normal;
 
-    background-color: #121212;
+  background-color: #121212;
 }
 
 #container {
-    margin: 20px;
-    width: 240px;
+  margin: 20px;
+  width: 240px;
 }
 
 #alert {
-    display: none;
+  display: none;
 
-    border-radius: 5px;
+  border-radius: 5px;
 
-    font-size: 1.2rem;
-    color: #fff;
+  font-size: 1.2rem;
+  color: #fff;
 
-    padding: 10px;
-    margin-bottom: 20px;
+  padding: 10px;
+  margin-bottom: 20px;
 }
 
 #alert.error {
-    background-color: #f56767;
+  background-color: #f56767;
 }
 
 #alert.success {
-    background-color: #67c1f5;
+  background-color: #67c1f5;
 }
 
 #container-steam,
 #container-gog {
-    background-color: #171a21;
-    border-radius: 5px;
-    border: 1px solid #21242d;
-    color: #fff;
-    margin: 0;
-    padding: 15px;
-    max-width: 100%;
-    text-align: center;
+  background-color: #171a21;
+  border-radius: 5px;
+  border: 1px solid #21242d;
+  color: #fff;
+  margin: 0;
+  padding: 15px;
+  max-width: 100%;
+  text-align: center;
 }
 
 #container-arrow {
-    margin: 10px auto;
-    text-align: center;
+  margin: 10px auto;
+  text-align: center;
 }
 
 #container-arrow i {
-    filter: invert(100%) sepia(0%) saturate(7496%) hue-rotate(233deg) brightness(100%) contrast(101%) opacity(0.7);
+  filter: invert(100%) sepia(0%) saturate(7496%) hue-rotate(233deg)
+    brightness(100%) contrast(101%) opacity(0.7);
 }
 
 .container-title {
-    color: rgba(255, 255, 255, 0.6);
-    font-size: 1.2rem;
-    margin: 0 0 20px 0;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 1.2rem;
+  margin: 0 0 20px 0;
 }
 
 .account-avatar {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    margin-right: 20px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin-right: 20px;
 }
 
 .account-name {
-    display: inline-block;
-    font-size: 1.2rem;
-    color: rgba(255, 255, 255, 0.6);
-    vertical-align: bottom;
-    line-height: 50px;
-    text-decoration: none;
+  display: inline-block;
+  font-size: 1.2rem;
+  color: rgba(255, 255, 255, 0.6);
+  vertical-align: bottom;
+  line-height: 50px;
+  text-decoration: none;
 
-    transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
 }
 
 .account-name:hover {
-    text-decoration: underline;
+  text-decoration: underline;
 }
 
 #btn-steam-login,
 #btn-gog-login {
-    background-color: transparent;
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    border-radius: 50%;
-    padding: 10px;
-    width: 74px;
-    height: 74px;
+  background-color: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  padding: 10px;
+  width: 74px;
+  height: 74px;
 
-    transition: border-color 0.3s ease-in-out;
+  transition: border-color 0.3s ease-in-out;
 }
 
 #btn-steam-login i,
 #btn-gog-login i {
-    transition: filter 0.3s ease-in-out;
-    filter: invert(100%) sepia(0%) saturate(7496%) hue-rotate(233deg) brightness(100%) contrast(101%) opacity(0.3);
+  transition: filter 0.3s ease-in-out;
+  filter: invert(100%) sepia(0%) saturate(7496%) hue-rotate(233deg)
+    brightness(100%) contrast(101%) opacity(0.3);
 }
 
 #btn-steam-login:hover,
 #btn-gog-login:hover {
-    cursor: pointer;
-    border-color: rgba(255, 255, 255, 0.7);
+  cursor: pointer;
+  border-color: rgba(255, 255, 255, 0.7);
 }
 
 #btn-steam-login:hover i,
 #btn-gog-login:hover i {
-    filter: invert(100%) sepia(0%) saturate(7496%) hue-rotate(233deg) brightness(100%) contrast(101%) opacity(0.7);
+  filter: invert(100%) sepia(0%) saturate(7496%) hue-rotate(233deg)
+    brightness(100%) contrast(101%) opacity(0.7);
 }
 
 .container-details {
-    display: none;
+  display: none;
 }
 
 #container-import-wishlist {
-    margin-top: 20px;
+  margin-top: 20px;
 }
 
 .container-wishlist {
-    display: none;
+  display: none;
 
-    margin-top: 20px;
-    padding: 1px 0px;
+  margin-top: 20px;
+  padding: 1px 0px;
 
-    background: rgba(103, 193, 245, 0.1);
-    border-radius: 5px;
+  background: rgba(103, 193, 245, 0.1);
+  border-radius: 5px;
 }
 
 .wishlist-count {
-    font-size: 1rem;
-    color:rgba(255, 255, 255, 0.3);
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.3);
 }
 
 .wishlist-count i {
-    opacity: 0.5;
-    filter: invert(100%) sepia(0%) saturate(7496%) hue-rotate(233deg) brightness(100%) contrast(101%) opacity(0.7);
+  opacity: 0.5;
+  filter: invert(100%) sepia(0%) saturate(7496%) hue-rotate(233deg)
+    brightness(100%) contrast(101%) opacity(0.7);
 }
 
 .wishlist-count span {
-    margin-left: 10px;
+  margin-left: 10px;
 }
 
 #delete-all-wishlist-label:hover,
 #delete-all-wishlist:hover {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 #delete-all-wishlist-label {
-    color:rgba(255, 255, 255, 0.7);
-    font-size: 1.2rem;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 1.2rem;
 }
 
 #delete-all-wishlist {
-    vertical-align: sub;
-    transform: scale(1.2);
+  vertical-align: sub;
+  transform: scale(1.2);
 }
 
 #btn-import-wishlist {
-    font-family: motiva-sans, Arial, Helvetica, sans-serif;
-    font-size: 1.6rem;
-    color: #d2efa9;
+  font-family: motiva-sans, Arial, Helvetica, sans-serif;
+  font-size: 1.6rem;
+  color: #d2efa9;
 
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 
-    cursor: pointer;
+  cursor: pointer;
 
-    border: 0;
-    border-radius: 5px;
-    background: #6fa720;
-    background: linear-gradient( to right, #75b022 5%, #588a1b 95%);
+  border: 0;
+  border-radius: 5px;
+  background: #6fa720;
+  background: linear-gradient(to right, #75b022 5%, #588a1b 95%);
 
-    margin-top: 5px;
-    padding: 10px;
-    width: 100%;
+  margin-top: 5px;
+  padding: 10px;
+  width: 100%;
 
-    transition: background 0.3s ease-in-out;
+  transition: background 0.3s ease-in-out;
 }
 
 #btn-import-wishlist:hover {
-    color: #ffffff;
+  color: #ffffff;
 
-    background: #8ed629;
-    background: linear-gradient( to right, #8ed629 5%, #6aa621 95%);
+  background: #8ed629;
+  background: linear-gradient(to right, #8ed629 5%, #6aa621 95%);
 }
 
 #btn-import-wishlist i {
-    margin-right: 10px;
+  margin-right: 10px;
 
-    filter: invert(88%) sepia(22%) saturate(466%) hue-rotate(37deg) brightness(101%) contrast(94%);
+  filter: invert(88%) sepia(22%) saturate(466%) hue-rotate(37deg)
+    brightness(101%) contrast(94%);
 }
 
 #btn-import-wishlist:hover i {
-    filter: invert(100%) sepia(6%) saturate(0%) hue-rotate(103deg) brightness(103%) contrast(101%);
+  filter: invert(100%) sepia(6%) saturate(0%) hue-rotate(103deg)
+    brightness(103%) contrast(101%);
 }
 
 #icon-steam-logo {
-    display: inline-block;
-    width: 50px;
-    height: 50px;
-    background: url(../assets/svg/steam-logo.svg) no-repeat;
-    background-size: 50px 50px;
-    vertical-align: middle;
+  display: inline-block;
+  width: 50px;
+  height: 50px;
+  background: url(../assets/svg/steam-logo.svg) no-repeat;
+  background-size: 50px 50px;
+  vertical-align: middle;
 }
 
 #icon-gog-logo {
-    color: transparent;
-    display: inline-block;
-    width: 40px;
-    height: 35.5px;
-    background-image: url(../assets/svg/gog-logo.svg);
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: 40px 35.5px;
-    vertical-align: middle;
+  color: transparent;
+  display: inline-block;
+  width: 40px;
+  height: 35.5px;
+  background-image: url(../assets/svg/gog-logo.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 40px 35.5px;
+  vertical-align: middle;
 }
 
 #icon-rotate {
-    color: transparent;
-    display: inline-block;
-    width: 24px;
-    height: 24px;
-    background-image: url(../assets/svg/rotate.svg);
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: 24px 24px;
-    vertical-align: middle;
+  color: transparent;
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  background-image: url(../assets/svg/rotate.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 24px 24px;
+  vertical-align: middle;
 }
 
 .icon-heart {
-    color: transparent;
-    display: inline-block;
-    width: 20px;
-    height: 20px;
-    background-image: url(../assets/svg/heart.svg);
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: 20px 20px;
-    vertical-align: middle;
+  color: transparent;
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  background-image: url(../assets/svg/heart.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 20px 20px;
+  vertical-align: middle;
 }
 
 #icon-arrow-down-long {
-    display: inline-block;
-    width: 30px;
-    height: 30px;
-    background: url(../assets/svg/arrow-down-long.svg) no-repeat;
-    background-size: 30px 30px;
-    vertical-align: middle;
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  background: url(../assets/svg/arrow-down-long.svg) no-repeat;
+  background-size: 30px 30px;
+  vertical-align: middle;
 }
 
 @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% {  transform: rotate(359deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(359deg);
+  }
 }
 
 .icon-spin {
-    animation: spin 2s linear infinite;
+  animation: spin 2s linear infinite;
 }
