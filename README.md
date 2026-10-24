@@ -1,5 +1,7 @@
 <img src=".github/logo.svg" alt="Import Wishlist logo" width="350" />
+
 ### Terrible Vibecoded AI Slop Edition!
+Someone please, please, please fix this properly!
 
 [![Chrome users](https://img.shields.io/chrome-web-store/users/jenjpehgcedkjfjmelkodhagcogpbmgl?label=Chrome%20users&logo=googlechrome&logoColor=white&color=blue)](https://chrome.google.com/webstore/detail/import-wishlist/jenjpehgcedkjfjmelkodhagcogpbmgl)
 [![Edge users](https://img.shields.io/badge/dynamic/json?label=Edge%20users&query=%24.activeInstallCount&url=https://microsoftedge.microsoft.com/addons/getproductdetailsbycrxid/fpjkbmpnfckpnaiijocjdfcjddnkjhnb&logo=microsoftedge&logoColor=white&color=blue)](https://microsoftedge.microsoft.com/addons/detail/import-wishlist/fpjkbmpnfckpnaiijocjdfcjddnkjhnb)
