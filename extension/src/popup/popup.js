@@ -23,47 +23,42 @@ let alertTimeoutId;
 function alert(status, message, timeout) {
     clearTimeout(alertTimeoutId);
 
-    const alert = document.getElementById("alert");
-    alert.classList.remove("success", "error");
+    const alertEl = document.getElementById("alert");
+    alertEl.classList.remove("success", "error");
 
-    alert.innerText = message;
-    alert.classList.add(status);
-    alert.style.display = "block";
+    alertEl.innerText = message;
+    alertEl.classList.add(status);
+    alertEl.style.display = "block";
    
     alertTimeoutId = setTimeout(() => {
-        alert.style.display = "none";
-        alert.classList.remove(status);
+        alertEl.style.display = "none";
+        alertEl.classList.remove(status);
     }, timeout);
 }
 
-function setSteamDetails(steamUserId) {
-    fetch(`https://steamcommunity.com/profiles/${steamUserId}/?xml=1`)
-    .then(response => {
-        response.text()
-        .then((content) => {
-            const parser = new DOMParser();
-            const xmlDoc = parser.parseFromString(content, "text/xml");
-            return xmlDoc;
-        })
-        .then(xmlDoc => {
-            document.getElementById("title-steam").textContent = chrome.i18n.getMessage("titleSteamAccount");
+function setSteamDetails() {
+    chrome.runtime.sendMessage({ type: "getSteamProfile" }, (profile) => {
+        if (profile) {
+            document.getElementById("title-steam").textContent = chrome.i18n.getMessage("titleSteamAccount") || "Your Steam account";
             document.getElementById("btn-steam-login").style.display = "none";
-
-            document.getElementById("steam-avatar").src
-                    = xmlDoc.getElementsByTagName("avatarFull")[0].childNodes[0].nodeValue;
-            document.getElementById("steam-name").href
-                    = `https://store.steampowered.com/wishlist/id/${xmlDoc.getElementsByTagName("customURL")[0].childNodes[0].nodeValue}`;
-            document.getElementById("steam-name").textContent
-                    = xmlDoc.getElementsByTagName("steamID")[0].childNodes[0].nodeValue;
+            if (profile.avatarUrl) {
+                document.getElementById("steam-avatar").src = profile.avatarUrl;
+            }
+            document.getElementById("steam-name").href = profile.profileUrl;
+            document.getElementById("steam-name").textContent = profile.steamName;
             document.getElementById("details-steam").style.display = "block";
-        });
+        }
     });
 
-    chrome.runtime.sendMessage({
-        "type": "getSteamWishlist",
-    }, (response) => {
-        document.getElementById("steam-wishlist-count").getElementsByTagName("span")[0].textContent = response.steamWishlistCount;
-        document.getElementsByClassName("container-wishlist")[0].style.display = "block";
+    chrome.runtime.sendMessage({ type: "getSteamWishlist" }, (response) => {
+        if (response) {
+            document.getElementById("steam-wishlist-count").getElementsByTagName("span")[0].textContent = response.steamWishlistCount;
+            document.getElementsByClassName("container-wishlist")[0].style.display = "block";
+
+            if (response.isPrivate) {
+                alert("error", "Your Steam wishlist is Private! Go to Steam -> Edit Profile -> Privacy Settings and set 'Game details' to Public.", 9000);
+            }
+        }
     });
 }
 
@@ -73,36 +68,34 @@ function setGogDetails(gogAccessToken) {
             "Authorization": `Bearer ${gogAccessToken}`,
         }
     })
-        .then(response => {
-            return response.json();
-        })
-        .then(data => {
-            document.getElementById("title-gog").textContent = chrome.i18n.getMessage("titleGogAccount");
-            document.getElementById("btn-gog-login").style.display = "none";
+    .then(response => response.json())
+    .then(data => {
+        document.getElementById("title-gog").textContent = chrome.i18n.getMessage("titleGogAccount") || "Your GOG account";
+        document.getElementById("btn-gog-login").style.display = "none";
+        if (data.avatars && data.avatars.menu_user_av_big2) {
             document.getElementById("gog-avatar").src = data.avatars.menu_user_av_big2;
-            document.getElementById("gog-name").textContent = data.username;
-            document.getElementById("gog-name").href = `https://www.gog.com/u/${data.username}/wishlist`;
-            document.getElementById("details-gog").style.display = "block";
-        });
+        }
+        document.getElementById("gog-name").textContent = data.username;
+        document.getElementById("gog-name").href = `https://www.gog.com/u/${data.username}/wishlist`;
+        document.getElementById("details-gog").style.display = "block";
+    });
 
     chrome.runtime.sendMessage({
         "type": "getGogWishlist",
     }, (response) => {
-        document.getElementById("gog-wishlist-count").getElementsByTagName("span")[0].textContent = response.gogWishlistCount;
-        document.getElementsByClassName("container-wishlist")[1].style.display = "block";
+        if (response && response.gogWishlistCount !== undefined) {
+            document.getElementById("gog-wishlist-count").getElementsByTagName("span")[0].textContent = response.gogWishlistCount;
+            document.getElementsByClassName("container-wishlist")[1].style.display = "block";
+        }
     });
 }
 
 document.getElementById("btn-gog-login").addEventListener("click", () => {
-    chrome.runtime.sendMessage({
-        "type": "startGogLogin"
-    });
+    chrome.runtime.sendMessage({ "type": "startGogLogin" });
 });
 
 document.getElementById("btn-steam-login").addEventListener("click", () => {
-    chrome.runtime.sendMessage({
-        "type": "startSteamLogin"
-    });
+    chrome.runtime.sendMessage({ "type": "startSteamLogin" });
 });
 
 document.getElementById("btn-import-wishlist").addEventListener("click", () => {
@@ -128,14 +121,17 @@ document.getElementById("btn-import-wishlist").addEventListener("click", () => {
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     switch (message.type) {
         case "gogLoginSuccess":
-            alert("success", chrome.i18n.getMessage("alertGogSignIn"), 5000);
+            alert("success", chrome.i18n.getMessage("alertGogSignIn") || "GOG signed in!", 5000);
             setGogDetails(message.gogAccessToken);
             break;
         case "gogAccessTokenRefreshed":
             setGogDetails(message.gogAccessToken);
             break;
         case "steamLoggedIn":
-            setSteamDetails(message.steam_user_id);
+            setSteamDetails();
+            break;
+        case "wishlistImportFailed":
+            document.getElementById("icon-rotate").classList.remove("icon-spin");
             break;
         case "wishlistImported":
             document.getElementById("icon-rotate").classList.remove("icon-spin");
@@ -147,19 +143,18 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
             break;
         case "alert":
             alert(message.status, message.message, message.timeout);
+            break;
     }
 });
 
 function checkIfAlreadyAuthenticate() {
     chrome.storage.local.get(["gog_access_token", "steam_user_id"], (result) => {
         if (result.gog_access_token) {
-            chrome.runtime.sendMessage({
-                "type": "refreshGogAccessToken"
-            });
+            chrome.runtime.sendMessage({ "type": "refreshGogAccessToken" });
         }
 
         if (result.steam_user_id) {
-            setSteamDetails(result.steam_user_id);
+            setSteamDetails();
         }
     });
 }
