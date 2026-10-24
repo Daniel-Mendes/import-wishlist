@@ -1,0 +1,31 @@
+{
+  "manifest_version": 3,
+  "name": "__MSG_extensionName__",
+  "version": "0.2.0",
+  "default_locale": "en",
+  "description": "__MSG_extensionDescription__",
+  "author": "Daniel Mendes",
+  "action": {
+    "default_popup": "popup/popup.html",
+    "default_title": "__MSG_extensionName__"
+  },
+  "background": {
+    "service_worker": "background/background.js"
+  },
+  "permissions": [
+    "storage",
+    "identity",
+    "webNavigation"
+  ],
+  "host_permissions": [
+    "https://store.steampowered.com/*",
+    "https://steamcommunity.com/*",
+    "https://*.gog.com/*",
+    "https://import-wishlist.netlify.app/*"
+  ],
+  "icons": {
+    "16": "assets/icons/icon-16.png",
+    "48": "assets/icons/icon-48.png",
+    "128": "assets/icons/icon-128.png"
+  }
+}
